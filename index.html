@@ -54,7 +54,7 @@
         <button id="button2" class="waves-effect waves-light btn">Search</button>
       </div> 
              <!--Hide this Row on Search  -->
-      <div class="row">
+      <div id="instructions-div" class="row">
         <div class="col s12">
           <h2 class="header grey-text text-lighten-4">Welcome to Movie Hub!</h2>
           <div class="card horizontal">
@@ -70,7 +70,7 @@
         </div>
       </div>
         <!-- Cards/ movie selectors show on search click -->
-        <div class="row hide">
+        <div id="primary-movie-div" class="row hide">
           <div class="col s12">
             <h3 id="title0" class="header grey-text text-lighten-4">Your Movie</h3>
             <div class="card horizontal medium">
@@ -83,15 +83,18 @@
                   <p></p>
                   <h5>Director</h5>	                   
                     <label>
-                    <div id="director-name"></div>	                      
+                    <div id="director-name">Director's Name Here</div>	                      
                     <input class="with-gap" name="group1" type="radio" checked/>
                     </label>
                     <h5>Actors</h5> 	                     
-                    <span>Actors</span>
                     <p>	
                       <label>	
-                        <input id="radio-btn${i}" class="with-gap" name="group1" type="radio" checked/>	
-                        <span id="actor{i}">Actors</span>
+                        <input id="radio-btn${i}" class="with-gap" name="actor-radio" type="radio" checked/>	
+                        <span id="actor{i}">Actor1</span>
+                      </label>
+                      <label>	
+                        <input id="radio-btn${i}" class="with-gap" name="actor-radio" type="radio"/>	
+                        <span id="actor{i}">Actor2</span>
                       </label>
                     </p>
                 </div>
@@ -116,25 +119,26 @@
           <form id="my_radio_box"  action="#">
             <p>
               <label>
-                <input class="with-gap" name="group1" type="radio" checked />
+                <input class="with-gap" name="suggestion-radios" type="radio" value="actor" checked />
                 <span>Actor (select one above)</span>
               </label>
             </p>
             <p>
               <label>
-                <input class="with-gap" name="group1" type="radio" />
+                <input class="with-gap" name="suggestion-radios" type="radio" value="director" />
                 <span>Director</span>
               </label>
             </p>
             <p>
               <label>
-                <input class="with-gap" name="group1" type="radio"  />
+                <input class="with-gap" name="suggestion-radios" type="radio" value="genre" />
                 <span>Genre (select one above)</span>
               </label>
             </p>
           </form>
           <br>
-          <a class="waves-effect waves-light btn">Show Me The Movies!</a>
+          <!-- Button to generate movie suggestions -->
+          <button id="suggest-movies-btn" class="waves-effect waves-light btn">Show Me The Movies!</button>
       </div>
       </div>
     </div>
@@ -142,6 +146,7 @@
       <!--cards-->
         <div class="container">
             <div class="col s4">
+              <!-- First card -->
               <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
                   <img class="activator img-responsive"
@@ -159,6 +164,7 @@
               </div>
             </div>
             <div class="col s4">
+              <!-- Second Card -->
               <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
                   <img class="activator"
