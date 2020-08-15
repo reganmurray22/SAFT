@@ -33,7 +33,10 @@
       <nav class="hide-on-med-and-down red">
           <div class="red">
             <a href="#!" class="brand-logo col s4 hide-on-small-only"> <i class="large material-icons">device_hub</i>Movie Hub</a>
-          </div> 
+          </div>
+          <ul id="nav-mobile" class="brand-logo col s4 offset-s5 right">
+            <li><h5>Expand Your Movie Horizons</h5></li>
+          </ul> 
       </nav>
     </div>
       <!-- Search Bar Div -->
@@ -78,13 +81,9 @@
                 <div class="card-content">
                   <p>Movies Details Actors and Genre placement</p>
                   <p></p>
-                  <h5>Director</h5>
-                  <div id="director-name"></div>
-                  <h5>Actors</h5> 
-                  <p>
-                  <label>
-                      <input id="radio-btn${i}" class="with-gap" name="group1" type="radio" checked/>
-                      <span id="actor{i}">Actors</span>
+                    <label>
+                      <input class="with-gap" name="group1" type="radio" checked/>
+                      <span>Actors</span>
                     </label>
                   </p>
                 </div>
@@ -105,7 +104,6 @@
       <div class="card">
         <div class="card-content">
           <span>Select One For Recommendations</span>
-          <!-- Input for search criteria -->
           <form id="my_radio_box"  action="#">
             <p>
               <label>
@@ -195,9 +193,8 @@
   <div class="container">
     <div class="row">
   <div class="footer-copyright">
-    <div class="container">
+    <div class="container center">
     © 2014 Copyright Text
-    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
     </div>
   </div>
 </footer>
