@@ -1,44 +1,32 @@
 function callApi(e) {
-    // if(e.key === 'Enter') {
-    //     let val = document.getElementById('search').value
-    // console.log(val)
-    // }
-    let val = document.getElementById('search').value.toLowerCase()
+    let query = document.getElementById('search').value.toLowerCase()
+    let apiKey = '91eadf893040a861219dbeed5365bc50'
 
     var xmlhttp = new XMLHttpRequest();
-    var url = `https://api.themoviedb.org/3/search/movie?api_key=91eadf893040a861219dbeed5365bc50&language=en-US&query=${val}&page=1&include_adult=false`
+    var url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`
 
     xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         var response = JSON.parse(this.responseText);
-        console.log(response.results[0].title);
-        parse(response);
-
-
+        parseAndUpdateHTML(response);
     }
     };
     xmlhttp.open("GET", url, true);
     xmlhttp.send();   
 }
-function parse(response) {
+function parseAndUpdateHTML(response) {
+   //  var i;
+    for(i = 0; i < response.results.length && i < 4; i++) {
+      document.getElementById("image"+i).src = "https://image.tmdb.org/t/p/w500" + response.results[i].poster_path ;
+      document.getElementById("title"+i).innerHTML = response.results[i].title ;
+      document.getElementById("overview"+i).innerHTML = response.results[i].overview ;
+      
+      if (i === 0) {
+         document.getElementById("rating"+i).innerHTML = "Ratings Box: "+response.results[i].vote_average ;
+      }
+   }
 
-
-   // var out = "";
-    var i;
-    for(i = 0; i < response.results.length; i++) {
-        console.log(response.results[i].title )
-        
-      //out += '<a href="' + arr[i].url + '">' + 
-      //arr[i].display + '</a><br>';
-    }
-   document.getElementById("image").src = "https://image.tmdb.org/t/p/w500" + response.results[0].poster_path ;
-   document.getElementById("title").innerHTML = response.results[0].title ;
-   document.getElementById("overview").innerHTML = response.results[0].overview ;
-   document.getElementById("rating").innerHTML = "Ratings Box: "+response.results[0].vote_average ;
-
-  }
-
-
+  } 
 
 
 
