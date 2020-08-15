@@ -8,42 +8,31 @@
     <script src="script.js"></script>
     <title>Movie Hub</title>    
 </head>
-<body>
-  <div class="container">
+<body class="red accent-2">
+  <div class="container amber lighten-2">
     <!-- Collapsable on medium to small screens -->
    <div class="row hide-on-large-only"> 
     <ul class="collapsible">
       <li>
-        <div class="collapsible-header red lighten-2"><i class="material-icons">tv</i>Movie Hub!</div>
+        <div class="collapsible-header red"><i class="material-icons">device_hub</i>Movie Hub</div>
         <div class="collapsible-body">
           <form>
-            <div class="input-field grey lighten-1">                       
+            <div class="input-field grey lighten-3">                       
               <input id="search-cola" type="search" required>
                 <label class="label-icon" for="search"><i  class="material-icons ">search</i></label>
                  <i class="material-icons">close</i>
               </div>
             </form>
-            <a class="waves-effect waves-light btn">Search</a> 
-        </div>
-      </li>
-      <li>
-        <div class="collapsible-header red lighten-2"><i class="material-icons">add_to_queue</i>Your Favorites</div>
-        <div class="collapsible-body">
-          <ul>
-            <li><a href="#" id="favorites-cola">My Favorites</a></li>
-          </ul>          
+            <button class="waves-effect waves-light btn">Search</button> 
         </div>
       </li>
     </ul>
   </div>
   <!-- Nav Bar With DropDown -->
     <div class="row">      
-      <nav class="hide-on-med-and-down">
+      <nav class="hide-on-med-and-down red">
           <div class="red">
-            <a href="#!" class="brand-logo col s4 hide-on-small-only">Movie Hub!</a>
-            <ul class="right col s2">
-              <li><a href="#">My Favorites</a></li>
-            </ul>
+            <a href="#!" class="brand-logo col s4 hide-on-small-only"> <i class="large material-icons">device_hub</i>Movie Hub</a>
           </div> 
       </nav>
     </div>
@@ -51,7 +40,7 @@
       <div class="row hide-on-med-and-down">
         <div class="col s6">
           <form>
-          <div class="input-field grey lighten-1">                       
+          <div class="input-field grey lighten-3">                       
             <input id="search" type="search" required>
               <label class="label-icon" for="search"><i  class="material-icons ">search</i></label>
                <i class="material-icons">close</i>
@@ -59,15 +48,31 @@
           </form>
         </div>
         <br>
-        <a class="waves-effect waves-light btn">Search</a>
-      </div>        
-        <!-- Cards/ movie selectors -->
-        <div class="row">
+        <button class="waves-effect waves-light btn">Search</button>
+      </div> 
+             <!--Hide this Row on Search  -->
+      <div class="row">
+        <div class="col s12">
+          <h2 class="header grey-text text-lighten-4">Welcome to Movie Hub!</h2>
+          <div class="card horizontal">
+            <div class="card-image">
+              <img class="img-responsive" src="https://upload.wikimedia.org/wikipedia/en/thumb/7/76/Kungfupanda.jpg/220px-Kungfupanda.jpg">
+            </div>
+            <div class="card-stacked">
+              <div class="card-content">
+                <h5>For movie lovers everywhere, this app was made to explore across movie Titles, Actors, Genres, and Directors. Simply search above and expand your movie horizons.</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-- Cards/ movie selectors show on search click -->
+        <div class="row hide">
           <div class="col s12">
-            <h2 id="title0" class="header">Your Movie</h2>
+            <h3 id="title0" class="header grey-text text-lighten-4">Your Movie</h3>
             <div class="card horizontal medium">
               <div class="card-image">
-                <img id="image0" src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
+                <img id="image0" class="img-responsive" src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
               </div>
               <div class="card-stacked">
                 <div class="card-content">
@@ -83,7 +88,7 @@
             </div>
           </div>
         </div>
-    <div class="row">
+    <div class="row hide">
       <div class="col s12">
         <div class="card">
           <div class="card-content">
@@ -92,7 +97,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row hide">
       <div class="card">
         <div class="card-content">
           <span>Select One For Recommendations</span>
@@ -121,51 +126,67 @@
       </div>
       </div>
     </div>
-    <div class="row">
-      <h4>Checkout These Other Titles!</h4>
-      <div class="col s4">
-        <div class="card">
-          <div class="card-image">
-            <img id="image1" src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
-            <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-          </div>
-          <span id="title1" class="card-title">Actor</span>
-          <div class="card-content">
-            <p id="overview1">I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col s4">
-        <div class="card">
-        <div class="card-image">
-          <img id="image2" src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
-          <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-        </div>
-        <span id="title2" class="card-title">Director</span>
-        <div class="card-content">
-          <p id="overview2">I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-        </div>
-      </div>
-      </div>
-      <div class="col s4">
-        <div class="card">
-          <div class="card-image">
-            <img id="image3" src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
-            <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-          </div>
-          <span id="title3" class="card-title">Genre</span>
-          <div class="card-content">
-            <p id="overview3">I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="row hide">
+      <!--cards-->
+        <div class="container">
+            <div class="col s4">
+              <div class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator img-responsive"
+                    src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">Card Title<i
+                      class="material-icons right">more_vert</i></span>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4">Card Title<i
+                      class="material-icons right">close</i></span>
+                  <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col s4">
+              <div class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator"
+                    src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">Card Title<i
+                      class="material-icons right">more_vert</i></span>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4">Card Text<i
+                      class="material-icons right">close</i></span>
+                  <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col s4">
+              <div class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator"
+                    src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">Card Title<i
+                      class="material-icons right">more_vert</i></span>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4">Card Title<i
+                      class="material-icons right">close</i></span>
+                  <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                </div>
+              </div>
+            </div>
+
    <!--This is the end line do not delete!-->
   </div>
   </div>
  
 </body>
-<footer class="page-footer">
+<footer class="page-footer red">
   <div class="container">
     <div class="row">
   <div class="footer-copyright">
