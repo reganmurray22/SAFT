@@ -1,7 +1,3 @@
-// Remove hide class when the search button is clicked
-// $(instructions-div).addClass("hide")
-// $(primary-movie-div).removeClass("hide")
-
 $("#button1").click(() => callApi(1));
 $("#button2").click(() => callApi(2));
 function callApi(id) {
@@ -11,6 +7,10 @@ function callApi(id) {
   let apiKey = "91eadf893040a861219dbeed5365bc50";
   var xmlhttp = new XMLHttpRequest();
   var url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`;
+
+  // Remove hide class when the search button is clicked
+
+  // $("#primary-movie-div").removeClass("hide");
 
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -28,6 +28,9 @@ function parseAndUpdateHTML(response) {
   document.getElementById("title0").innerHTML = response.results[0].title;
   document.getElementById("rating0").innerHTML =
     "Ratings Box: " + response.results[0].vote_average;
+
+  // Hide Instructions Container
+  $("#instructions-div").addClass("remove-display");
 
   // unhidding hidden cards
   let hidden = document.getElementsByClassName("row hide");
@@ -47,12 +50,6 @@ function parseAndUpdateHTML(response) {
   //     }
   //   }
 }
-
-// function createQueryURL(primaryMovie){
-// return "https:WHATEVERTHEAPICALLFORMATISHEREWITH${primaryMovie}&${APIKEY}";
-// }
-
-// }
 
 // Parse movie data to display:
 // function parseResp(resp)
@@ -80,10 +77,19 @@ function parseAndUpdateHTML(response) {
 // };
 
 // Select Search Criteria w/ check boxes (one item to start)
-$("#actor-search").click(() => suggestMovies());
+// $("#actor-search").click(() => suggestMovies());
 
-function suggestMovies() {
-  console.log("CLICK");
+// CLICK EVENT FOR 'SUGGEST MOVIES' BUTTON
+$("#suggest-movies-btn").on("click", () => {
+  console.log("nina-click");
+  const suggRadioBtn = suggestMovies();
+});
+
+function suggestMovies(e) {
+  console.log("suggestMoviescalled");
+  const suggRadioBtns = $("input[name='suggestion-radios']:checked").val();
+  console.log("THIS SHOULD SAY ACTOR", suggRadioBtns);
+  return suggRadioBtns;
 }
 
 window.suggestMovies = suggestMovies;
