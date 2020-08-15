@@ -62,6 +62,7 @@
         <a class="waves-effect waves-light btn">Search</a>
       </div>        
         <!-- Cards/ movie selectors -->
+        <!-- Main Content -->
         <div class="row">
           <div class="col s12">
             <h2 id="title0" class="header">Your Movie</h2>
@@ -73,9 +74,13 @@
                 <div class="card-content">
                   <p>Movies Details Actors and Genre placement</p>
                   <p></p>
-                    <label>
-                      <input class="with-gap" name="group1" type="radio" checked/>
-                      <span>Actors</span>
+                  <h5>Director</h5>
+                  <div id="director-name"></div>
+                  <h5>Actors</h5> 
+                  <p>
+                  <label>
+                      <input id="radio-btn${i}" class="with-gap" name="group1" type="radio" checked/>
+                      <span id="actor{i}">Actors</span>
                     </label>
                   </p>
                 </div>
@@ -83,6 +88,7 @@
             </div>
           </div>
         </div>
+      <!-- Ratings Div -->
     <div class="row">
       <div class="col s12">
         <div class="card">
@@ -92,10 +98,12 @@
         </div>
       </div>
     </div>
+    <!-- Search for Recommendations -->
     <div class="row">
       <div class="card">
         <div class="card-content">
           <span>Select One For Recommendations</span>
+          <!-- Input for search criteria -->
           <form id="my_radio_box"  action="#">
             <p>
               <label>
@@ -121,9 +129,11 @@
       </div>
       </div>
     </div>
+    <!-- Suggestions Div -->
     <div class="row">
       <h4>Checkout These Other Titles!</h4>
       <div class="col s4">
+        <!-- First Card -->
         <div class="card">
           <div class="card-image">
             <img id="image1" src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
@@ -136,6 +146,7 @@
         </div>
       </div>
       <div class="col s4">
+        <!-- Second Card -->
         <div class="card">
         <div class="card-image">
           <img id="image2" src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
@@ -148,6 +159,7 @@
       </div>
       </div>
       <div class="col s4">
+        <!-- Third Card -->
         <div class="card">
           <div class="card-image">
             <img id="image3" src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
