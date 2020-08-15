@@ -1,57 +1,35 @@
 function callApi(e) {
-    let query = document.getElementById('search').value.toLowerCase()
-    let apiKey = '91eadf893040a861219dbeed5365bc50'
+  let query = document.getElementById("search").value.toLowerCase();
+  let apiKey = "91eadf893040a861219dbeed5365bc50";
 
-    var xmlhttp = new XMLHttpRequest();
-    var url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`
+  var xmlhttp = new XMLHttpRequest();
+  var url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`;
 
-    xmlhttp.onreadystatechange = function() {
+  xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-        var response = JSON.parse(this.responseText);
-        parseAndUpdateHTML(response);
+      var response = JSON.parse(this.responseText);
+      parseAndUpdateHTML(response);
     }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();   
+  };
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
 }
 function parseAndUpdateHTML(response) {
-   //  var i;
-    for(i = 0; i < response.results.length && i < 4; i++) {
-      document.getElementById("image"+i).src = "https://image.tmdb.org/t/p/w500" + response.results[i].poster_path ;
-      document.getElementById("title"+i).innerHTML = response.results[i].title ;
-      document.getElementById("overview"+i).innerHTML = response.results[i].overview ;
-      
-      if (i === 0) {
-         document.getElementById("rating"+i).innerHTML = "Ratings Box: "+response.results[i].vote_average ;
-      }
-   }
+  //  var i;
+  for (i = 0; i < response.results.length && i < 4; i++) {
+    document.getElementById("image" + i).src =
+      "https://image.tmdb.org/t/p/w500" + response.results[i].poster_path;
+    document.getElementById("title" + i).innerHTML = response.results[i].title;
+    document.getElementById("overview" + i).innerHTML =
+      response.results[i].overview;
 
-  } 
+    if (i === 0) {
+      document.getElementById("rating" + i).innerHTML =
+        "Ratings Box: " + response.results[i].vote_average;
+    }
+  }
+}
 
-// Search Bar takes in value, click event w/ button
-// function searchPrimaryMovie(e) {
-// Get Value from search bar
-// const primaryMovie = $().val();
-
-// If search button is clicked but there's no text, return
-// if (var === "") {return;}
-
-// Pass to API call
-// const newURL = createQueryURL(primaryMovie);
-// getMovieData(newURL);
-// }
-
-// function createQueryURL(primaryMovie){
-// return "https:WHATEVERTHEAPICALLFORMATISHEREWITH${primaryMovie}&${APIKEY}";
-// }
-
-// API call to get movie data
-// function getMovieData(url) {
-//   $.ajax({
-//     url: url,
-//     method: "GET",
-//   }).then((resp) => {
-//     const movieData = parseResp(resp);
 // }
 
 // Parse movie data to display:
@@ -197,3 +175,29 @@ window.suggestMovies = suggestMovies;
     "vote_count":19816
  }
  */
+
+// Nina's Pseudo code
+// Search Bar takes in value, click event w/ button
+// function searchPrimaryMovie(e) {
+// Get Value from search bar
+// const primaryMovie = $().val();
+
+// If search button is clicked but there's no text, return
+// if (var === "") {return;}
+
+// Pass to API call
+// const newURL = createQueryURL(primaryMovie);
+// getMovieData(newURL);
+// }
+
+// function createQueryURL(primaryMovie){
+// return "https:WHATEVERTHEAPICALLFORMATISHEREWITH${primaryMovie}&${APIKEY}";
+// }
+
+// API call to get movie data
+// function getMovieData(url) {
+//   $.ajax({
+//     url: url,
+//     method: "GET",
+//   }).then((resp) => {
+//     const movieData = parseResp(resp);
