@@ -65,14 +65,14 @@ so this API call searches for an actor/director by their name and then finds the
 to search their individual filmographies. 
 */
 
-var searchActor = "Tom Cruise";
+var searchPerson = "Tom Cruise";
     
-    var nameArray = searchActor.split(" ");
-    var actorsName = nameArray[0] + "+" +nameArray[1];
-       console.log(actorsName);
+    var nameArray = searchPerson.split(" ");
+    var personsName = nameArray[0] + "+" +nameArray[1];
+       console.log(personsName);
 
     $.ajax({
-        url:"https://api.themoviedb.org/3/search/person?api_key=820bbe10cb48ba65507b6fe60d8c0d50&query=" + actorsName,
+        url:"https://api.themoviedb.org/3/search/person?api_key=820bbe10cb48ba65507b6fe60d8c0d50&query=" + personsName,
         method: "GET"
     }).then(function (result) {
       
@@ -105,9 +105,34 @@ var personId = 500
    }
 
     let x = credits.cast.length;
-    console.log(number);
+    console.log(X);
 
 }); 
+
+//DIRECTORS ONLY!!!!
+
+var personId = 638
+   
+   $.ajax({
+   url:"https://api.themoviedb.org/3/person/" + personId + "/movie_credits?api_key=820bbe10cb48ba65507b6fe60d8c0d50&language=en-US",
+   method: "GET"
+}).then(function (credits) {
+     console.log(credits);
+   let creditsArray = [];
+   for (i = 0; i < credits.crew.length; i++) {
+
+    var filmography = credits.crew[i].title;
+    creditsArray.push(filmography);
+    console.log(creditsArray);
+    localStorage.setItem("creditsArray", JSON.stringify(creditsArray));
+   }
+
+    let x = credits.crew.length;
+    console.log(x);
+
+     
+}); 
+
 
 /*CREATING THREE CHOICES WITHOUT HAVING TO MAKE ANOTHER API CALL USING MATH.RANDOM
 
