@@ -33,9 +33,9 @@
       <div class="input-field col s4 offset-s8">
         <select multiple>
           <option value="" disabled selected>Select Your Options</option>
-          <option value="1" class="text-color-blue">Actor</option>
-          <option value="2">Director</option>
-          <option value="3">Genre</option>
+          <option id="actor-search" value="1" class="text-color-blue">Actor!</option>
+          <option id="director-search" value="2">Director</option>
+          <option id="genre-search" value="3">Genre</option>
         </select>
         <label>Refine Your Search</label>
       </div>
@@ -45,10 +45,10 @@
            -->
         <div class="row">
           <div class="col s12">
-            <h2 class="header">Your Movie</h2>
+            <h2 id="primary-movie-title" class="header">Your Movie</h2>
             <div class="card horizontal medium">
               <div class="card-image">
-                <img src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
+                <img id="primary-movie-poster" src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
               </div>
               <div class="card-stacked">
                 <div class="card-content">
@@ -126,6 +126,7 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
 </script>
+<script src="script.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $(".dropdown-trigger").dropdown({ hover: false });
