@@ -1,3 +1,6 @@
+// Remove hide class when the search button is clicked
+// $(instructions-div).addClass("hide")
+// $(primary-movie-div).removeClass("hide")
 function callApi(e) {
   let query = document.getElementById("search").value.toLowerCase();
   let apiKey = "91eadf893040a861219dbeed5365bc50";
@@ -44,10 +47,9 @@ function parseAndUpdateHTML(response) {
 // function drawMainContent(movieDataObject) {
 
 // Movie Title
-$("#primary-movie-title");
 
 // Poster
-$("#primary-movie-poster");
+
 // Year
 
 // Genre
