@@ -34,9 +34,9 @@
       <div class="input-field col s4 offset-s8">
         <select multiple>
           <option value="" disabled selected>Select Your Options</option>
-          <option value="1" class="text-color-blue">Actor</option>
-          <option value="2">Director</option>
-          <option value="3">Genre</option>
+          <option id="actor-search" value="1" class="text-color-blue">Actor!</option>
+          <option id="director-search" value="2">Director</option>
+          <option id="genre-search" value="3">Genre</option>
         </select>
         <label>Refine Your Search</label>
       </div>
@@ -127,6 +127,7 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
 </script>
+<script src="script.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $(".dropdown-trigger").dropdown({ hover: false });
