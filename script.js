@@ -1,7 +1,8 @@
-function callApi(e) {
-  let query = document.getElementById("search").value.toLowerCase();
+$("#button1").click(() => callApi(1));
+$("#button2").click(() => callApi(2));
+function callApi(id) {
+  let query = document.getElementById( id === 1 ? "search-cola" : "search").value.toLowerCase();
   let apiKey = "91eadf893040a861219dbeed5365bc50";
-
   var xmlhttp = new XMLHttpRequest();
   var url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`;
 
@@ -15,20 +16,41 @@ function callApi(e) {
   xmlhttp.send();
 }
 function parseAndUpdateHTML(response) {
-  //  var i;
-  for (i = 0; i < response.results.length && i < 4; i++) {
-    document.getElementById("image" + i).src =
-      "https://image.tmdb.org/t/p/w500" + response.results[i].poster_path;
-    document.getElementById("title" + i).innerHTML = response.results[i].title;
-    document.getElementById("overview" + i).innerHTML =
-      response.results[i].overview;
+  // setting your movie section
+  document.getElementById("image0").src =
+      "https://image.tmdb.org/t/p/w500" + response.results[0].poster_path;
+   document.getElementById("title0").innerHTML = response.results[0].title;
+   document.getElementById("rating0").innerHTML =
+        "Ratings Box: " + response.results[0].vote_average;
+        
+        // unhidding hidden cards
+        let hidden = document.getElementsByClassName("row hide")
+        hidden[0].classList.replace('hide',null)
+        hidden[1].classList.replace('hide',null)
+        hidden[2].classList.replace('hide',null)
+        hidden[3].classList.replace('hide',null)
 
-    if (i === 0) {
-      document.getElementById("rating" + i).innerHTML =
-        "Ratings Box: " + response.results[i].vote_average;
-    }
-  }
+
+
+
+
+
+
+//   for (i = 0; i < response.results.length && i < 1; i++) {
+//     document.getElementById("image" + i).src =
+//       "https://image.tmdb.org/t/p/w500" + response.results[i].poster_path;
+//     document.getElementById("title" + i).innerHTML = response.results[i].title;
+//     if (i === 0) {
+//       document.getElementById("rating" + i).innerHTML =
+//         "Ratings Box: " + response.results[i].vote_average;
+//         document.getElementById.className = 'row'
+//     }
+//   }
 }
+
+// function createQueryURL(primaryMovie){
+// return "https:WHATEVERTHEAPICALLFORMATISHEREWITH${primaryMovie}&${APIKEY}";
+// }
 
 // }
 
@@ -48,6 +70,8 @@ $("#primary-movie-title");
 
 // Poster
 $("#primary-movie-poster");
+$("#primary-movie-poster");
+
 // Year
 
 // Genre
