@@ -14,19 +14,33 @@ function parseAndUpdateHTML(movie) {
    // setting your movie section
    var i = 0
    let actors = movie.Actors.split(",")
+   let genres = movie.Genre.split(",")
    document.getElementById("image0") ? document.getElementById("image0").src = movie.Poster : null
    document.getElementById("title0") ? document.getElementById("title0").innerHTML = movie.Title : null
    document.getElementById("rating0")? document.getElementById("rating0").innerHTML = "Ratings Box: " + movie.imdbRating : null
    document.getElementById("overview0") ? document.getElementById("overview0").innerHTML = movie.Plot : null
    document.getElementById("director-name") ? document.getElementById("director-name").innerHTML = movie.Director : null
-   document.getElementById("actors0") ? document.getElementById("actors0").innerHTML = actors[0] : null
+   document.getElementById("actor0") ? document.getElementById("actor0").innerHTML = actors[0] : null
+   document.getElementById("actor1") ? document.getElementById("actor1").innerHTML = actors[1] : null
+   document.getElementById("genre0") ? document.getElementById("genre0").innerHTML = genres[0] : null
+   document.getElementById("genre1") ? document.getElementById("genre1").innerHTML = genres[1] : null
 
+var actorsRadioBtns = '';
+ for (var i = 0; i < actors.length ; i++) {
+   actorsRadioBtns += '<label><input id="actor-radio-btn'+ i +'" class="with-gap" name="actor-radio" type="radio" value="500" checked/><span id="actor'+i+'">'+actors[i]+'</span></label>'
+ }
+ document.getElementById('actors-radio-btns').insertAdjacentHTML('afterbegin', actorsRadioBtns);
+
+ var genresRadioBtns = '';
+ for (var i = 0; i < genres.length ; i++) {
+   genresRadioBtns += '<label><input id="genere-radio-btn'+ i +'" class="with-gap" name="genere-radio" type="radio" value="28" checked/><span id="genere'+i+'">'+genres[i]+'</span></label>'
+ }
+ document.getElementById('geners-radio-btns').insertAdjacentHTML('afterbegin', genresRadioBtns);
 
    $("#card0").removeClass("hide");
    $("#rating-card").removeClass("hide");
    $("#welcomeRow").addClass('hide')
    $("#recommendation-box").removeClass('hide');
-
 
 
    
