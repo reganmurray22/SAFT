@@ -4,30 +4,45 @@ function callApi(id) {
   let query = document
     .getElementById(id === 1 ? "search-cola" : "search")
     .value.toLowerCase();
-  let apiKey = "91eadf893040a861219dbeed5365bc50";
-  var xmlhttp = new XMLHttpRequest();
-  var url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`;
 
-  // Remove hide class when the search button is clicked
+  // ******************************************  HEY GUYS.  DIDN'T WE DECIDE TO USE THIS OTHER API FOR GETTING THE MOVIE?
+  // ******************************************  THE API THAT WAS BEING USED DIDN'T RETURN A DIRECTOR.
+  // ******************************************  REGAN'S API CALL IS RETURNING THE DIRECTOR AND ACTORS - SO I PUT THAT IN.
 
-  // $("#primary-movie-div").removeClass("hide");
+  // let apiKey = "91eadf893040a861219dbeed5365bc50";
+  // var xmlhttp = new XMLHttpRequest();
+  // var url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`;
 
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var response = JSON.parse(this.responseText);
-      parseAndUpdateHTML(response);
-    }
-  };
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
+  // xmlhttp.onreadystatechange = function () {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     var response = JSON.parse(this.responseText);
+  //     parseAndUpdateHTML(response);
+  //   }
+  // };
+  // xmlhttp.open("GET", url, true);
+  // xmlhttp.send();
+
+  $.ajax({
+    url: "https://www.omdbapi.com/?t=jack_reacher&apikey=trilogy",
+    method: "GET",
+  }).then(function (response) {
+    console.log("RESPONSE", response);
+    parseAndUpdateHTML(response);
+    // var cast = response.Actors;
+    // console.log(cast);
+
+    // var castArray = cast.split(", ");
+    // console.log(castArray);
+
+    // var searchActor = castArray[0];
+    // console.log(searchActor);
+  });
 }
 function parseAndUpdateHTML(response) {
   // setting your movie section
-  document.getElementById("image0").src =
-    "https://image.tmdb.org/t/p/w500" + response.results[0].poster_path;
-  document.getElementById("title0").innerHTML = response.results[0].title;
-  document.getElementById("rating0").innerHTML =
-    "Ratings Box: " + response.results[0].vote_average;
+  document.getElementById("image0").src = response.Poster;
+  document.getElementById("title0").innerHTML = response.Title;
+  document.getElementById("rating0").innerHTML = response.Ratings[0].Value;
 
   // Hide Instructions Container
   $("#instructions-div").addClass("remove-display");
@@ -82,14 +97,34 @@ function parseAndUpdateHTML(response) {
 // CLICK EVENT FOR 'SUGGEST MOVIES' BUTTON
 $("#suggest-movies-btn").on("click", () => {
   console.log("nina-click");
-  const suggRadioBtn = suggestMovies();
+  const suggRadioBtn = selectRecommendationCrit();
+  determineAPICall(suggRadioBtn);
 });
 
-function suggestMovies(e) {
-  console.log("suggestMoviescalled");
+function selectRecommendationCrit(e) {
+  console.log("selectRecommendationCritCalled");
   const suggRadioBtns = $("input[name='suggestion-radios']:checked").val();
   console.log("THIS SHOULD SAY ACTOR", suggRadioBtns);
   return suggRadioBtns;
+}
+
+function determineAPICall(suggRadioBtn) {
+  if (suggRadioBtn === actor) {
+    //  check which actor is selected and get their ID
+    let personId = $("input[name='actor-radio']:checked").val();
+    // call API for movie credits
+    // APIfunctionNameActors(personId)
+  } else if (suggRadioBtn === director) {
+    //  get ID of director
+    let personId = $("#director-name").val();
+    // call API for directors
+    // APIfunctionNameDirector(personID)
+  } else if (suggRadioBtn === genre) {
+    // check which genre is selected
+    let = $("input[name='genre-radio']:checked").val();
+    // call API for genres
+    // APIfunctionNameGenres()
+  }
 }
 
 window.suggestMovies = suggestMovies;
