@@ -104,37 +104,104 @@ $("#suggest-movies-btn").on("click", () => {
 function selectRecommendationCrit(e) {
   console.log("selectRecommendationCritCalled");
   const suggRadioBtns = $("input[name='suggestion-radios']:checked").val();
-  console.log("THIS SHOULD SAY ACTOR", suggRadioBtns);
+  console.log("THIS IS A", suggRadioBtns);
   return suggRadioBtns;
 }
 
 function determineAPICall(suggRadioBtn) {
-  if (suggRadioBtn === actor) {
-    //  check which actor is selected and get their ID
+  // IF THEY WANT TO SEARCH BY ACTOR
+  if (suggRadioBtn === "actor") {
+    //  check which actor is selected and get their ID **THIS WORKS***
     let personId = $("input[name='actor-radio']:checked").val();
     // call API for movie credits
-    // APIfunctionNameActors(personId)
-  } else if (suggRadioBtn === director) {
+    getActorCredits(personId);
+    // IF THEY WANT TO SEARCH BY DIRECTOR
+  } else if (suggRadioBtn === "director") {
     //  get ID of director
     let personId = $("#director-name").val();
+    console.log("personId in detAPI", personId);
     // call API for directors
-    // APIfunctionNameDirector(personID)
-  } else if (suggRadioBtn === genre) {
+    getDirectorCredits(personId);
+    // IF THEY WANT TO SEARCH BY GENRE
+  } else if (suggRadioBtn === "genre") {
     // check which genre is selected
-    let = $("input[name='genre-radio']:checked").val();
+    let genreIdChoice = $("input[name='genre-radio']:checked").val();
+    console.log("#", genreIdChoice);
     // call API for genres
-    // APIfunctionNameGenres()
+    getMovieListByGenre(genreIdChoice);
   }
 }
 
-window.suggestMovies = suggestMovies;
+// window.suggestMovies = suggestMovies;
 
-// $("#director-search").click(console.log("it clicked"));
+function getActorCredits(personId) {
+  $.ajax({
+    url:
+      "https://api.themoviedb.org/3/person/" +
+      personId +
+      "/movie_credits?api_key=820bbe10cb48ba65507b6fe60d8c0d50&language=en-US",
+    method: "GET",
+  }).then(function (credits) {
+    let moviesArray = [];
 
-// $("genre-search").click(console.log("it clicked"));
+    for (i = 0; i < credits.cast.length; i++) {
+      var filmography = credits.cast[i].title;
+      moviesArray.push(filmography);
+    }
 
-// Make 1 or 2 API calls to suggest 3 movies to watch
+    console.log(moviesArray);
+    localStorage.setItem("moviesArray", JSON.stringify(moviesArray));
 
+    let x = credits.cast.length;
+    console.log(x);
+  });
+}
+
+function getDirectorCredits(personId) {
+  $.ajax({
+    url:
+      "https://api.themoviedb.org/3/person/" +
+      personId +
+      "/movie_credits?api_key=820bbe10cb48ba65507b6fe60d8c0d50&language=en-US",
+    method: "GET",
+  }).then(function (credits) {
+    let moviesArray = [];
+
+    for (i = 0; i < credits.crew.length; i++) {
+      var filmography = credits.crew[i].title;
+      moviesArray.push(filmography);
+    }
+
+    console.log(moviesArray);
+    localStorage.setItem("creditsArray", JSON.stringify(moviesArray));
+
+    let x = credits.crew.length;
+    console.log(x);
+  });
+}
+
+function getMovieListByGenre(genreIdChoice) {
+  $.ajax({
+    url:
+      "https://api.themoviedb.org/3/discover/movie?api_key=820bbe10cb48ba65507b6fe60d8c0d50&language=en-US&include_adult=false&with_genres=" +
+      genreIdChoice +
+      "",
+    method: "GET",
+  }).then(function (movieList) {
+    let moviesArray = [];
+
+    for (i = 0; i < movieList.results.length; i++) {
+      var movie = movieList.results[i].title;
+      moviesArray.push(movie);
+    }
+
+    console.log(moviesArray);
+    localStorage.setItem("moviesArray", JSON.stringify(moviesArray));
+
+    let x = movieList.results.length;
+    console.log(x);
+  });
+}
 // Put Posters and Titles of 3 movies from API call into the cards
 
 // Stretch goal: When you click one of the recommended movies
