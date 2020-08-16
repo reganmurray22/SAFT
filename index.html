@@ -80,10 +80,10 @@
               <div class="card-stacked">
                 <div class="card-content">
                   <p>Movies Details Actors and Genre placement</p>
-                  <p></p>
+                  
                   <h5>Director</h5>	                   
                     <label>
-                    <div id="director-name">Director's Name Here</div>	                      
+                    <div id="director-name" value="">Director's Name Here</div>	                      
                     <input class="with-gap" name="group1" type="radio" checked/>
                     </label>
                     <h5>Actors</h5> 	                     
@@ -96,6 +96,15 @@
                         <input id="radio-btn${i}" class="with-gap" name="actor-radio" type="radio"/>	
                         <span id="actor{i}">Actor2</span>
                       </label>
+                      <h5>Genres</h5>
+                      <p><label>	
+                        <input id="radio-btn${i}" class="with-gap" name="genre-radio" type="radio" checked/>	
+                        <span id="genre{i}">Genre1</span>
+                      </label>
+                      <label>	
+                        <input id="radio-btn${i}" class="with-gap" name="genre-radio" type="radio"/>	
+                        <span id="genre{i}">Genre2</span>
+                      </label></p>
                     </p>
                 </div>
               </div>
