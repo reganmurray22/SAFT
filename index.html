@@ -79,20 +79,32 @@
               </div>
               <div class="card-stacked">
                 <div class="card-content">
-                  <p id='overview0'>Movies Details Actors and Genre placement</p>
-                  <p></p>
-                  <h5 id="">Director</h5>	                   
-                    <label>
-                    <div id="director0"></div>	                      
-                    <input class="with-gap" name="group1" type="radio" checked/>
+                  <p>Movies Details Actors and Genre placement</p>
+                  
+                  <h5>Director</h5>	                   
+                    <label> 	                    
+                    <input id="director-name" class="with-gap" name="group1" value="9033" type="radio" checked/>
+                    <span>Director's Name Here</span>
                     </label>
-                    <h5 >Actors</h5> 	                     
-                    <span>Actors</span>
-                    <p id= actors0>	
+                    <h5>Actors</h5> 	                     
+                    <p>	
                       <label>	
-                        <input id="radio-btn${i}" class="with-gap" name="group1" type="radio" checked/>	
-                        <span id="actor{i}">Actors</span>
+                        <input id="radio-btn${i}" class="with-gap" name="actor-radio" type="radio" value="500" checked/>	
+                        <span id="actor{i}">Actor1</span>
                       </label>
+                      <label>	
+                        <input id="radio-btn${i}" class="with-gap" name="actor-radio" type="radio"/>	
+                        <span id="actor{i}">Actor2</span>
+                      </label>
+                      <h5>Genres</h5>
+                      <p><label>	
+                        <input id="radio-btn${i}" class="with-gap" name="genre-radio" type="radio" value="28" checked/>	
+                        <span id="genre{i}">Genre1</span>
+                      </label>
+                      <label>	
+                        <input id="radio-btn${i}" class="with-gap" name="genre-radio" type="radio"/>	
+                        <span id="genre{i}">Genre2</span>
+                      </label></p>
                     </p>
                 </div>
               </div>
@@ -116,25 +128,26 @@
           <form id="my_radio_box"  action="#">
             <p>
               <label>
-                <input class="with-gap" name="group1" type="radio" checked />
+                <input class="with-gap" name="suggestion-radios" type="radio" value="actor" checked />
                 <span>Actor (select one above)</span>
               </label>
             </p>
             <p>
               <label>
-                <input class="with-gap" name="group1" type="radio" />
+                <input class="with-gap" name="suggestion-radios" type="radio" value="director" />
                 <span>Director</span>
               </label>
             </p>
             <p>
               <label>
-                <input class="with-gap" name="group1" type="radio"  />
+                <input class="with-gap" name="suggestion-radios" type="radio" value="genre" />
                 <span>Genre (select one above)</span>
               </label>
             </p>
           </form>
           <br>
-          <button id="suggestions-button"  class="waves-effect waves-light btn">Show Me The Movies!</button>
+          <!-- Button to generate movie suggestions -->
+          <button id="suggest-movies-btn" class="waves-effect waves-light btn">Show Me The Movies!</button>
       </div>
       </div>
     </div>
@@ -142,6 +155,7 @@
       <!--cards-->
         <div class="container">
             <div class="col s4">
+              <!-- First card -->
               <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
                   <img id="image1"class="activator img-responsive"
@@ -159,6 +173,7 @@
               </div>
             </div>
             <div class="col s4">
+              <!-- Second Card -->
               <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
                   <img id="image2" class="activator"

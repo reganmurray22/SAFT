@@ -18,7 +18,7 @@ function parseAndUpdateHTML(movie) {
    document.getElementById("title0") ? document.getElementById("title0").innerHTML = movie.Title : null
    document.getElementById("rating0")? document.getElementById("rating0").innerHTML = "Ratings Box: " + movie.imdbRating : null
    document.getElementById("overview0") ? document.getElementById("overview0").innerHTML = movie.Plot : null
-   document.getElementById("director0") ? document.getElementById("director0").innerHTML = movie.Director : null
+   document.getElementById("director-name") ? document.getElementById("director-name").innerHTML = movie.Director : null
    document.getElementById("actors0") ? document.getElementById("actors0").innerHTML = actors[0] : null
 
 
@@ -54,12 +54,6 @@ function parseAndUpdateHTML(movie) {
 
 }
 
-// function createQueryURL(primaryMovie){
-// return "https:WHATEVERTHEAPICALLFORMATISHEREWITH${primaryMovie}&${APIKEY}";
-// }
-
-// }
-
 // Parse movie data to display:
 // function parseResp(resp)
 // const movieDataObject = {};
@@ -72,11 +66,8 @@ function parseAndUpdateHTML(movie) {
 // function drawMainContent(movieDataObject) {
 
 // Movie Title
-$("#primary-movie-title");
 
 // Poster
-$("#primary-movie-poster");
-$("#primary-movie-poster");
 
 // Year
 
@@ -89,20 +80,116 @@ $("#primary-movie-poster");
 // };
 
 // Select Search Criteria w/ check boxes (one item to start)
-$("#suggestions-button").click(() => suggestMovies());
+// $("#actor-search").click(() => suggestMovies());
 
-function suggestMovies() {
-   console.log("CLICK");
+// CLICK EVENT FOR 'SUGGEST MOVIES' BUTTON
+$("#suggest-movies-btn").on("click", () => {
+  console.log("nina-click");
+  const suggRadioBtn = selectRecommendationCrit();
+  determineAPICall(suggRadioBtn);
+});
+
+function selectRecommendationCrit(e) {
+  console.log("selectRecommendationCritCalled");
+  const suggRadioBtns = $("input[name='suggestion-radios']:checked").val();
+  console.log("THIS IS A", suggRadioBtns);
+  return suggRadioBtns;
 }
 
-window.suggestMovies = suggestMovies;
+function determineAPICall(suggRadioBtn) {
+  // IF THEY WANT TO SEARCH BY ACTOR
+  if (suggRadioBtn === "actor") {
+    //  check which actor is selected and get their ID **THIS WORKS***
+    let personId = $("input[name='actor-radio']:checked").val();
+    // call API for movie credits
+    getActorCredits(personId);
+    // IF THEY WANT TO SEARCH BY DIRECTOR
+  } else if (suggRadioBtn === "director") {
+    //  get ID of director
+    let personId = $("#director-name").val();
+    console.log("personId in detAPI", personId);
+    // call API for directors
+    getDirectorCredits(personId);
+    // IF THEY WANT TO SEARCH BY GENRE
+  } else if (suggRadioBtn === "genre") {
+    // check which genre is selected
+    let genreIdChoice = $("input[name='genre-radio']:checked").val();
+    console.log("#", genreIdChoice);
+    // call API for genres
+    getMovieListByGenre(genreIdChoice);
+  }
+}
 
-// $("#director-search").click(console.log("it clicked"));
+// window.suggestMovies = suggestMovies;
 
-// $("genre-search").click(console.log("it clicked"));
+function getActorCredits(personId) {
+  $.ajax({
+    url:
+      "https://api.themoviedb.org/3/person/" +
+      personId +
+      "/movie_credits?api_key=820bbe10cb48ba65507b6fe60d8c0d50&language=en-US",
+    method: "GET",
+  }).then(function (credits) {
+    let moviesArray = [];
 
-// Make 1 or 2 API calls to suggest 3 movies to watch
+    for (i = 0; i < credits.cast.length; i++) {
+      var filmography = credits.cast[i].title;
+      moviesArray.push(filmography);
+    }
 
+    console.log(moviesArray);
+    localStorage.setItem("moviesArray", JSON.stringify(moviesArray));
+
+    let x = credits.cast.length;
+    console.log(x);
+  });
+}
+
+function getDirectorCredits(personId) {
+  $.ajax({
+    url:
+      "https://api.themoviedb.org/3/person/" +
+      personId +
+      "/movie_credits?api_key=820bbe10cb48ba65507b6fe60d8c0d50&language=en-US",
+    method: "GET",
+  }).then(function (credits) {
+    let moviesArray = [];
+
+    for (i = 0; i < credits.crew.length; i++) {
+      var filmography = credits.crew[i].title;
+      moviesArray.push(filmography);
+    }
+
+    console.log(moviesArray);
+    localStorage.setItem("creditsArray", JSON.stringify(moviesArray));
+
+    let x = credits.crew.length;
+    console.log(x);
+  });
+}
+
+function getMovieListByGenre(genreIdChoice) {
+  $.ajax({
+    url:
+      "https://api.themoviedb.org/3/discover/movie?api_key=820bbe10cb48ba65507b6fe60d8c0d50&language=en-US&include_adult=false&with_genres=" +
+      genreIdChoice +
+      "",
+    method: "GET",
+  }).then(function (movieList) {
+    let moviesArray = [];
+
+    for (i = 0; i < movieList.results.length; i++) {
+      var movie = movieList.results[i].title;
+      moviesArray.push(movie);
+    }
+
+    console.log(moviesArray);
+    localStorage.setItem("moviesArray", JSON.stringify(moviesArray));
+
+    let x = movieList.results.length;
+    console.log(x);
+  });
+}
 // Put Posters and Titles of 3 movies from API call into the cards
 
 // Stretch goal: When you click one of the recommended movies
