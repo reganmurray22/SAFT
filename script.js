@@ -1,51 +1,57 @@
 $("#button1").click(() => callApi(1));
 $("#button2").click(() => callApi(2));
-function callApi(id) {
-  let query = document.getElementById( id === 1 ? "search-cola" : "search").value.toLowerCase();
-  let apiKey = "91eadf893040a861219dbeed5365bc50";
-  var xmlhttp = new XMLHttpRequest();
-  var url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`;
-
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var response = JSON.parse(this.responseText);
-      parseAndUpdateHTML(response);
-    }
-  };
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
+callApi = async (id) => {
+   let query = document.getElementById(id === 1 ? "search-cola" : "search").value.toLowerCase().trim();
+   console.log(document.getElementById(id === 1 ? "search-cola" : "search").value)
+   let apiKey = "91eadf893040a861219dbeed5365bc50";
+   const response = await fetch(`https://www.omdbapi.com/?t=${query}&apikey=trilogy`)
+   const responseData = await response.json();
+   parseAndUpdateHTML(responseData);
 }
-function parseAndUpdateHTML(response) {
-  // setting your movie section
-  document.getElementById("image0").src =
-      "https://image.tmdb.org/t/p/w500" + response.results[0].poster_path;
-   document.getElementById("title0").innerHTML = response.results[0].title;
-   document.getElementById("rating0").innerHTML =
-        "Ratings Box: " + response.results[0].vote_average;
-        
-        // unhidding hidden cards
-        let hidden = document.getElementsByClassName("row hide")
-        hidden[0].classList.replace('hide',null)
-        hidden[1].classList.replace('hide',null)
-        hidden[2].classList.replace('hide',null)
-        hidden[3].classList.replace('hide',null)
+
+
+function parseAndUpdateHTML(movie) {
+   // setting your movie section
+   var i = 0
+   let actors = movie.Actors.split(",")
+   document.getElementById("image0") ? document.getElementById("image0").src = movie.Poster : null
+   document.getElementById("title0") ? document.getElementById("title0").innerHTML = movie.Title : null
+   document.getElementById("rating0")? document.getElementById("rating0").innerHTML = "Ratings Box: " + movie.imdbRating : null
+   document.getElementById("overview0") ? document.getElementById("overview0").innerHTML = movie.Plot : null
+   document.getElementById("director0") ? document.getElementById("director0").innerHTML = movie.Director : null
+   document.getElementById("actors0") ? document.getElementById("actors0").innerHTML = actors[0] : null
+
+
+   $("#card0").removeClass("hide");
+   $("#rating-card").removeClass("hide");
+   $("#welcomeRow").addClass('hide')
+   $("#recommendation-box").removeClass('hide');
 
 
 
+   
+   // for (let i = 0; i < movies.length && i < 4; i++) {
+   //    document.getElementById("image"+i)? document.getElementById("image"+i).src = "https://image.tmdb.org/t/p/w500" + movies[i].poster_path : null
+   //    document.getElementById("title"+i) ? document.getElementById("title"+i).innerHTML = movies[i].title : null
+   //    document.getElementById("rating"+i)? document.getElementById("rating"+i).innerHTML = "Ratings Box: " + movies[i].vote_average : null
+   //    document.getElementById("overview"+i) ? document.getElementById("overview"+i).innerHTML = movies[i].overview : null
+   //    if (i === 0) {
+   //       $("#card0").removeClass("hide");
 
+   //       $("#rating-card").removeClass("hide");
 
+   //    }
 
+   // }
+   // if(movies.length > 4)  {
+   //    $(".hide").removeClass("hide");
+   // }
+   // $("#welcomeRow").addClass('hide')
 
-//   for (i = 0; i < response.results.length && i < 1; i++) {
-//     document.getElementById("image" + i).src =
-//       "https://image.tmdb.org/t/p/w500" + response.results[i].poster_path;
-//     document.getElementById("title" + i).innerHTML = response.results[i].title;
-//     if (i === 0) {
-//       document.getElementById("rating" + i).innerHTML =
-//         "Ratings Box: " + response.results[i].vote_average;
-//         document.getElementById.className = 'row'
-//     }
-//   }
+   // if(movies.length > 1 && movies.length < 4) {
+   //    $("#recommendation-box").removeClass('hide');
+   // }
+
 }
 
 // function createQueryURL(primaryMovie){
@@ -83,10 +89,10 @@ $("#primary-movie-poster");
 // };
 
 // Select Search Criteria w/ check boxes (one item to start)
-$("#actor-search").click(() => suggestMovies());
+$("#suggestions-button").click(() => suggestMovies());
 
 function suggestMovies() {
-  console.log("CLICK");
+   console.log("CLICK");
 }
 
 window.suggestMovies = suggestMovies;
