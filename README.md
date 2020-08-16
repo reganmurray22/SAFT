@@ -10,6 +10,7 @@ Welcome to Movie Hub! Where you can expand your movie horizons at the click of a
 ### Usage
 
 ### Api's Used
+ Open Movie Database
+ The Movie Database
  
-
 ### Credits
