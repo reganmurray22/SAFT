@@ -97,11 +97,11 @@ function parseAndUpdateHTML(response) {
 // CLICK EVENT FOR 'SUGGEST MOVIES' BUTTON
 $("#suggest-movies-btn").on("click", () => {
   console.log("nina-click");
-  const suggRadioBtn = selectRecommendationCrit();
+  const suggRadioBtn = selectRecommendationCriteria();
   determineAPICall(suggRadioBtn);
 });
 
-function selectRecommendationCrit(e) {
+function selectRecommendationCriteria(e) {
   console.log("selectRecommendationCritCalled");
   const suggRadioBtns = $("input[name='suggestion-radios']:checked").val();
   console.log("THIS IS A", suggRadioBtns);
@@ -154,6 +154,7 @@ function getActorCredits(personId) {
 
     let x = credits.cast.length;
     console.log(x);
+    getThreeMovies(moviesArray, x);
   });
 }
 
@@ -177,6 +178,7 @@ function getDirectorCredits(personId) {
 
     let x = credits.crew.length;
     console.log(x);
+    getThreeMovies(moviesArray, x);
   });
 }
 
@@ -200,10 +202,47 @@ function getMovieListByGenre(genreIdChoice) {
 
     let x = movieList.results.length;
     console.log(x);
+    getThreeMovies(moviesArray, x);
   });
 }
 // Put Posters and Titles of 3 movies from API call into the cards
 
+function getThreeMovies(moviesArray, x) {
+  let threeChoices = "";
+
+  for (var i = 1; i <= 3; i++) {
+    threeChoices =
+      threeChoices + moviesArray[Math.floor(Math.random() * x)] + ", ";
+  }
+
+  console.log(threeChoices);
+
+  var choiceArray = threeChoices.split(", ");
+  console.log(choiceArray, choiceArray.length);
+
+  let iter = 0;
+  choiceArray.forEach((choice) => {
+    // call function that runs OMDB API call
+    getChoice(choice, iter);
+    iter++;
+  });
+
+  // let userChoice = choiceArray[0];
+  // console.log(userChoice);
+}
+
+function getChoice(choice, iter) {
+  // make API call
+  $.ajax({
+    url: "https://www.omdbapi.com/?t=" + choice + "&apikey=trilogy",
+    method: "GET",
+  }).then(function (response) {
+    console.log(response);
+  });
+  // call drawCard(response, iter)
+}
+
+function drawCard(response, iter) {}
 // Stretch goal: When you click one of the recommended movies
 // display additional information
 
