@@ -1,69 +1,71 @@
 $("#button1").click(() => callApi(1));
 $("#button2").click(() => callApi(2));
-function callApi(id) {
-  let query = document
-    .getElementById(id === 1 ? "search-cola" : "search")
-    .value.toLowerCase();
-
-  // ******************************************  HEY GUYS.  DIDN'T WE DECIDE TO USE THIS OTHER API FOR GETTING THE MOVIE?
-  // ******************************************  THE API THAT WAS BEING USED DIDN'T RETURN A DIRECTOR.
-  // ******************************************  REGAN'S API CALL IS RETURNING THE DIRECTOR AND ACTORS - SO I PUT THAT IN.
-
-  // let apiKey = "91eadf893040a861219dbeed5365bc50";
-  // var xmlhttp = new XMLHttpRequest();
-  // var url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`;
-
-  // xmlhttp.onreadystatechange = function () {
-  //   if (this.readyState == 4 && this.status == 200) {
-  //     var response = JSON.parse(this.responseText);
-  //     parseAndUpdateHTML(response);
-  //   }
-  // };
-  // xmlhttp.open("GET", url, true);
-  // xmlhttp.send();
-
-  $.ajax({
-    url: "https://www.omdbapi.com/?t=jack_reacher&apikey=trilogy",
-    method: "GET",
-  }).then(function (response) {
-    console.log("RESPONSE", response);
-    parseAndUpdateHTML(response);
-    // var cast = response.Actors;
-    // console.log(cast);
-
-    // var castArray = cast.split(", ");
-    // console.log(castArray);
-
-    // var searchActor = castArray[0];
-    // console.log(searchActor);
-  });
+callApi = async (id) => {
+   let query = document.getElementById(id === 1 ? "search-cola" : "search").value.toLowerCase().trim();
+   console.log(document.getElementById(id === 1 ? "search-cola" : "search").value)
+   let apiKey = "91eadf893040a861219dbeed5365bc50";
+   const response = await fetch(`https://www.omdbapi.com/?t=${query}&apikey=trilogy`)
+   const responseData = await response.json();
+   parseAndUpdateHTML(responseData);
 }
-function parseAndUpdateHTML(response) {
-  // setting your movie section
-  document.getElementById("image0").src = response.Poster;
-  document.getElementById("title0").innerHTML = response.Title;
-  document.getElementById("rating0").innerHTML = response.Ratings[0].Value;
 
-  // Hide Instructions Container
-  $("#instructions-div").addClass("remove-display");
 
-  // unhidding hidden cards
-  let hidden = document.getElementsByClassName("row hide");
-  hidden[0].classList.replace("hide", null);
-  hidden[1].classList.replace("hide", null);
-  hidden[2].classList.replace("hide", null);
-  hidden[3].classList.replace("hide", null);
+function parseAndUpdateHTML(movie) {
+   // setting your movie section
+   var i = 0
+   let actors = movie.Actors.split(",")
+   let genres = movie.Genre.split(",")
+   document.getElementById("image0") ? document.getElementById("image0").src = movie.Poster : null
+   document.getElementById("title0") ? document.getElementById("title0").innerHTML = movie.Title : null
+   document.getElementById("rating0")? document.getElementById("rating0").innerHTML = "Ratings Box: " + movie.imdbRating : null
+   document.getElementById("overview0") ? document.getElementById("overview0").innerHTML = movie.Plot : null
+   document.getElementById("director-name") ? document.getElementById("director-name").innerHTML = movie.Director : null
+   document.getElementById("actor0") ? document.getElementById("actor0").innerHTML = actors[0] : null
+   document.getElementById("actor1") ? document.getElementById("actor1").innerHTML = actors[1] : null
+   document.getElementById("genre0") ? document.getElementById("genre0").innerHTML = genres[0] : null
+   document.getElementById("genre1") ? document.getElementById("genre1").innerHTML = genres[1] : null
 
-  //   for (i = 0; i < response.results.length && i < 1; i++) {
-  //     document.getElementById("image" + i).src =
-  //       "https://image.tmdb.org/t/p/w500" + response.results[i].poster_path;
-  //     document.getElementById("title" + i).innerHTML = response.results[i].title;
-  //     if (i === 0) {
-  //       document.getElementById("rating" + i).innerHTML =
-  //         "Ratings Box: " + response.results[i].vote_average;
-  //         document.getElementById.className = 'row'
-  //     }
-  //   }
+var actorsRadioBtns = '';
+ for (var i = 0; i < actors.length ; i++) {
+   actorsRadioBtns += '<label><input id="actor-radio-btn'+ i +'" class="with-gap" name="actor-radio" type="radio" value="500" checked/><span id="actor'+i+'">'+actors[i]+'</span></label>'
+ }
+ document.getElementById('actors-radio-btns').insertAdjacentHTML('afterbegin', actorsRadioBtns);
+
+ var genresRadioBtns = '';
+ for (var i = 0; i < genres.length ; i++) {
+   genresRadioBtns += '<label><input id="genres-radio-btn'+ i +'" class="with-gap" name="genre-radio" type="radio" value="28" checked/><span id="genre'+i+'">'+genres[i]+'</span></label>'
+ }
+ document.getElementById('genres-radio-btns').insertAdjacentHTML('afterbegin', genresRadioBtns);
+
+   $("#card0").removeClass("hide");
+   $("#rating-card").removeClass("hide");
+   $("#welcomeRow").addClass('hide')
+   $("#recommendation-box").removeClass('hide');
+
+
+   
+   // for (let i = 0; i < movies.length && i < 4; i++) {
+   //    document.getElementById("image"+i)? document.getElementById("image"+i).src = "https://image.tmdb.org/t/p/w500" + movies[i].poster_path : null
+   //    document.getElementById("title"+i) ? document.getElementById("title"+i).innerHTML = movies[i].title : null
+   //    document.getElementById("rating"+i)? document.getElementById("rating"+i).innerHTML = "Ratings Box: " + movies[i].vote_average : null
+   //    document.getElementById("overview"+i) ? document.getElementById("overview"+i).innerHTML = movies[i].overview : null
+   //    if (i === 0) {
+   //       $("#card0").removeClass("hide");
+
+   //       $("#rating-card").removeClass("hide");
+
+   //    }
+
+   // }
+   // if(movies.length > 4)  {
+   //    $(".hide").removeClass("hide");
+   // }
+   // $("#welcomeRow").addClass('hide')
+
+   // if(movies.length > 1 && movies.length < 4) {
+   //    $("#recommendation-box").removeClass('hide');
+   // }
+
 }
 
 // Parse movie data to display:

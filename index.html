@@ -54,7 +54,7 @@
         <button id="button2" class="waves-effect waves-light btn">Search</button>
       </div> 
              <!--Hide this Row on Search  -->
-      <div id="instructions-div" class="row">
+      <div id="welcomeRow" class="row">
         <div class="col s12">
           <h2 class="header grey-text text-lighten-4">Welcome to Movie Hub!</h2>
           <div class="card horizontal">
@@ -70,7 +70,7 @@
         </div>
       </div>
         <!-- Cards/ movie selectors show on search click -->
-        <div id="primary-movie-div" class="row hide">
+        <div id="card0" class="row hide">
           <div class="col s12">
             <h3 id="title0" class="header grey-text text-lighten-4">Your Movie</h3>
             <div class="card horizontal medium">
@@ -79,39 +79,23 @@
               </div>
               <div class="card-stacked">
                 <div class="card-content">
-                  <p>Movies Details Actors and Genre placement</p>
+                  <p id="overview0" >Movies Details Actors and Genre placement</p>
                   
                   <h5>Director</h5>	                   
                     <label> 	                    
-                    <input id="director-name" class="with-gap" name="group1" value="9033" type="radio" checked/>
-                    <span>Director's Name Here</span>
+                    <input class="with-gap" name="group1" value="9033" type="radio" checked/>
+                    <span id="director-name">Director's Name Here</span>
                     </label>
                     <h5>Actors</h5> 	                     
-                    <p>	
-                      <label>	
-                        <input id="radio-btn${i}" class="with-gap" name="actor-radio" type="radio" value="500" checked/>	
-                        <span id="actor{i}">Actor1</span>
-                      </label>
-                      <label>	
-                        <input id="radio-btn${i}" class="with-gap" name="actor-radio" type="radio"/>	
-                        <span id="actor{i}">Actor2</span>
-                      </label>
-                      <h5>Genres</h5>
-                      <p><label>	
-                        <input id="radio-btn${i}" class="with-gap" name="genre-radio" type="radio" value="28" checked/>	
-                        <span id="genre{i}">Genre1</span>
-                      </label>
-                      <label>	
-                        <input id="radio-btn${i}" class="with-gap" name="genre-radio" type="radio"/>	
-                        <span id="genre{i}">Genre2</span>
-                      </label></p>
-                    </p>
+                    <p id ='actors-radio-btns'></p>
+                    <h5>Genres</h5>
+                    <p id ='geners-radio-btns'></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-    <div class="row hide">
+    <div id= "rating-card"class="row hide">
       <div class="col s12">
         <div class="card">
           <div class="card-content">
@@ -120,7 +104,7 @@
         </div>
       </div>
     </div>
-    <div class="row hide">
+    <div id="recommendation-box" class="row hide">
       <div class="card">
         <div class="card-content">
           <span>Select One For Recommendations</span>
@@ -158,18 +142,17 @@
               <!-- First card -->
               <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
-                  <img class="activator img-responsive"
+                  <img id="image1"class="activator img-responsive"
                     src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
                 </div>
                 <div class="card-content">
-                  <span class="card-title activator grey-text text-darken-4">Card Title<i
+                  <span id="title1" class="card-title activator grey-text text-darken-4">Card Title<i
                       class="material-icons right">more_vert</i></span>
                 </div>
                 <div class="card-reveal">
-                  <span class="card-title grey-text text-darken-4">Card Title<i
+                  <span id="title1" class="card-title grey-text text-darken-4">Card Title<i
                       class="material-icons right">close</i></span>
-                  <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                  <button id="suggestion-one" class="waves-effect waves-light btn">Check Me Out</button>
+                  <p id="overview1">Here is some more information about this product that is only revealed once clicked on.</p>
                 </div>
               </div>
             </div>
@@ -177,36 +160,34 @@
               <!-- Second Card -->
               <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
-                  <img class="activator"
+                  <img id="image2" class="activator"
                     src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
                 </div>
                 <div class="card-content">
-                  <span class="card-title activator grey-text text-darken-4">Card Title<i
+                  <span id="title2" class="card-title activator grey-text text-darken-4">Card Title<i
                       class="material-icons right">more_vert</i></span>
                 </div>
                 <div class="card-reveal">
-                  <span class="card-title grey-text text-darken-4">Card Text<i
+                  <span id="title2" class="card-title grey-text text-darken-4">Card Text<i
                       class="material-icons right">close</i></span>
-                  <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                  <button id="suggestion-two" class="waves-effect waves-light btn">Check Me Out</button>
+                  <p id="overview2">Here is some more information about this product that is only revealed once clicked on.</p>
                 </div>
               </div>
             </div>
             <div class="col s4">
               <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
-                  <img class="activator"
+                  <img id="image3" class="activator"
                     src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
                 </div>
                 <div class="card-content">
-                  <span class="card-title activator grey-text text-darken-4">Card Title<i
+                  <span id="title3" class="card-title activator grey-text text-darken-4">Card Title<i
                       class="material-icons right">more_vert</i></span>
                 </div>
                 <div class="card-reveal">
-                  <span class="card-title grey-text text-darken-4">Card Title<i
+                  <span id="title3" class="card-title grey-text text-darken-4">Card Title<i
                       class="material-icons right">close</i></span>
-                  <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                  <button id="suggestion-three" class="waves-effect waves-light btn">Check Me Out</button>
+                  <p id="overview3">Here is some more information about this product that is only revealed once clicked on.</p>
                 </div>
               </div>
             </div>
