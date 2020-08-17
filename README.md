@@ -10,6 +10,9 @@ Welcome to Movie Hub! Where you can expand your movie horizons at the click of a
 ### Usage
 
 ### Api's Used
+API's that we yhat we are use are:
+Open movie data base. THe movie data base.
+
  
 
 ### Credits
