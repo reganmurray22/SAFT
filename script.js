@@ -278,8 +278,8 @@ function getMovieListByGenre(genreIdChoice) {
     getThreeMovies(moviesArray, x);
   });
 }
-// Put Posters and Titles of 3 movies from API call into the cards
 
+// Put Posters and Titles of 3 movies from API call into the cards
 function getThreeMovies(moviesArray, x) {
   let threeChoices = "";
 
@@ -305,6 +305,7 @@ function getThreeMovies(moviesArray, x) {
   });
 }
 
+// MAKES API CALL TO GET SUGGESTED MOVIE DATA
 function getChoice(choice) {
   // make API call
   $.ajax({
@@ -322,7 +323,7 @@ function getChoice(choice) {
 
 // TAKES EACH OF THE THREE SUGGESTIONS AND WRITES THE HTML TO DISPLAY IT
 function drawCard(response) {
-  console.log("drawCardcalled", response);
+  // console.log("drawCardcalled", response);
   const movieCards = $("#suggestion-cards");
   const movieTitle = response.Title;
   const moviePoster = response.Poster;
@@ -343,15 +344,21 @@ function drawCard(response) {
       <span id="title1" class="card-title grey-text text-darken-4">${movieTitle}<i
           class="material-icons right">close</i></span>
       <p id="overview1">${moviePlot}</p>
-      <button id="suggestion-one" class="waves-effect waves-light btn">Check Me Out</button>
+      <button id="suggestion-${movieTitle}" class="waves-effect waves-light btn" value="${movieTitle}">Check Me Out</button>
     </div>
   </div>
 </div>`;
   let movieCardsHTML = String(movieCards.html());
-  console.log(movieCardsHTML);
+
   movieCardsHTML += movieCardTemplate;
   movieCards.html(movieCardsHTML);
 }
+
+// CLICK EVENT TO PUT A SUGGESTED MOVIE INTO THE MAIN CONTAINER
+$(`#suggestion-${movieTitle}`).on("click", () => {
+  console.log("e");
+  const newMovieTitle = $("#movie");
+});
 
 function setGenreIdArrayInLocalStorage() {
   $.ajax({
