@@ -1,3 +1,5 @@
+// *****WE NEED A PREVENT DEFAULT IF THE SEARCH BUTTON IS CLICKED W/ NO TEXT****
+
 $("#button1").click(() => callApi(1));
 $("#button2").click(() => callApi(2));
 callApi = async (id) => {
@@ -87,6 +89,27 @@ function parseAndUpdateHTML(movie) {
   $("#welcomeRow").addClass("hide");
   $("#recommendation-box").removeClass("hide");
 
+  var searchPerson = "Tom Cruise";
+
+  actors.forEach((actor, i) => {
+    var personsName = actor.replace(" ", "+");
+    $.ajax({
+      url:
+        "https://api.themoviedb.org/3/search/person?api_key=820bbe10cb48ba65507b6fe60d8c0d50&query=" +
+        personsName,
+      method: "GET",
+    }).then(function (result) {
+      console.log("RESULT => ", result);
+      var personId = result.results[0].id;
+      console.log(personId);
+      console.log("START OF HTML QUERY ", i);
+      console.log(document.getElementById(`#actor-radio-btn${i}`));
+      document
+        .getElementById(`actor-radio-btn${i}`)
+        .setAttribute("value", personId);
+    });
+  });
+
   // for (let i = 0; i < movies.length && i < 4; i++) {
   //    document.getElementById("image"+i)? document.getElementById("image"+i).src = "https://image.tmdb.org/t/p/w500" + movies[i].poster_path : null
   //    document.getElementById("title"+i) ? document.getElementById("title"+i).innerHTML = movies[i].title : null
@@ -126,15 +149,11 @@ function parseAndUpdateHTML(movie) {
 
 // };
 
-// Select Search Criteria w/ check boxes (one item to start)
-// $("#actor-search").click(() => suggestMovies());
-
 // CLICK EVENT FOR 'SUGGEST MOVIES' BUTTON
 $("#suggest-movies-btn").on("click", () => {
   console.log("nina-click");
   const suggRadioBtn = selectRecommendationCriteria();
   determineAPICall(suggRadioBtn);
-  // CLEAR HTML FROM MOVIE CARD CONTAINER
 });
 
 function selectRecommendationCriteria(e) {
@@ -255,48 +274,61 @@ function getThreeMovies(moviesArray, x) {
 
   var choiceArray = threeChoices.split(", ");
   console.log(choiceArray, choiceArray.length);
+  // CLEARS PREVIOUS MOVIE SUGGESTIONS
+  const movieCards = $("#suggestion-cards");
+  movieCards.html("");
 
-  let iter = 0;
   choiceArray.forEach((choice) => {
     // call function that runs OMDB API call
-    getChoice(choice, iter);
-    iter++;
+    // THIS IF STATEMENT PREVENTS THE EMPTY SPOT IN THE ARRAY FROM RUNNING
+    if (!choice == "") {
+      getChoice(choice);
+    }
   });
-
-  // let userChoice = choiceArray[0];
-  // console.log(userChoice);
 }
 
-function getChoice(choice, iter) {
+function getChoice(choice) {
   // make API call
   $.ajax({
     url: "https://www.omdbapi.com/?t=" + choice + "&apikey=trilogy",
     method: "GET",
   }).then(function (response) {
-    console.log(response);
+    console.log("getChoiceRan", response);
+    drawCard(response);
   });
-  drawCard(response, iter);
 }
 
-// Parse movie data to display:
-// function parseResp(resp)
-// const movieDataObject = {};
-// movieDataObject.title = resp.
-// movieDataOjbect.year = resp.
-// movieDataObject.director = resp.
-// movieDataObject.actors = resp.
-// movieDataObject.ratings =
-
-function drawCard(response, iter) {
+// TAKES EACH OF THE THREE SUGGESTIONS AND WRITES THE HTML TO DISPLAY IT
+function drawCard(response) {
+  console.log("drawCardcalled", response);
   const movieCards = $("#suggestion-cards");
   const movieTitle = response.Title;
   const moviePoster = response.Poster;
   const moviePlot = response.Plot;
   let movieCardTemplate = "";
 
-  movieCardTemplate += ``;
-
-  movieCards.html(movieCardTemplate);
+  movieCardTemplate += `<div class="col s4">
+  <div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img id="image1"class="activator img-responsive"
+        src=${moviePoster}>
+    </div>
+    <div class="card-content">
+      <span id="${movieTitle}" class="card-title activator grey-text text-darken-4">${movieTitle}<i
+          class="material-icons right">more_vert</i></span>
+    </div>
+    <div class="card-reveal">
+      <span id="title1" class="card-title grey-text text-darken-4">${movieTitle}<i
+          class="material-icons right">close</i></span>
+      <p id="overview1">${moviePlot}</p>
+      <button id="suggestion-one" class="waves-effect waves-light btn">Check Me Out</button>
+    </div>
+  </div>
+</div>`;
+  let movieCardsHTML = String(movieCards.html());
+  console.log(movieCardsHTML);
+  movieCardsHTML += movieCardTemplate;
+  movieCards.html(movieCardsHTML);
 }
 
 // Stretch goal: When you click one of the recommended movies

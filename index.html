@@ -89,7 +89,7 @@
                     <h5>Actors</h5> 	                     
                     <p id ='actors-radio-btns'></p>
                     <h5>Genres</h5>
-                    <p id ='geners-radio-btns'></p>
+                    <p id ='genres-radio-btns'></p>
                 </div>
               </div>
             </div>
@@ -99,7 +99,7 @@
       <div class="col s12">
         <div class="card">
           <div class="card-content">
-            <p id="rating0">Ratings Box:</p>
+            <p id="rating0">IMDB Rating:</p>
           </div>
         </div>
       </div>
@@ -140,26 +140,26 @@
       <!--cards-->
         <div class="container" id="suggestion-cards">
           <!-- First card -->
-            <div class="col s4">
-              <div class="card" id="card${iter}">
+            <!-- <div class="col s4">
+              <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
                   <img id="image1"class="activator img-responsive"
-                    src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
+                    src=${moviePoster}>
                 </div>
                 <div class="card-content">
-                  <span id="title1" class="card-title activator grey-text text-darken-4">Card Title<i
+                  <span id="${movieTitle}" class="card-title activator grey-text text-darken-4">${movieTitle}<i
                       class="material-icons right">more_vert</i></span>
                 </div>
                 <div class="card-reveal">
                   <span id="title1" class="card-title grey-text text-darken-4">Card Title<i
                       class="material-icons right">close</i></span>
-                  <p id="overview1">Here is some more information about this product that is only revealed once clicked on.</p>
+                  <p id="overview1">${moviePlot}</p>
                   <button id="suggestion-one" class="waves-effect waves-light btn">Check Me Out</button>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Second Card -->
-            <div class="col s4">
+            <!-- <div class="col s4">
               <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
                   <img id="image2" class="activator"
@@ -176,9 +176,9 @@
                   <button id="suggestion-two" class="waves-effect waves-light btn">Check Me Out</button>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- Third Card -->
-            <div class="col s4">
+            <!-- <div class="col s4">
               <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
                   <img id="image3" class="activator"
@@ -195,7 +195,7 @@
                   <button id="suggestion-three" class="waves-effect waves-light btn">Check Me Out</button>
                 </div>
               </div>
-            </div>
+            </div> -->
 
    <!--This is the end line do not delete!-->
   </div>
