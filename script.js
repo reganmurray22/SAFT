@@ -134,6 +134,7 @@ $("#suggest-movies-btn").on("click", () => {
   console.log("nina-click");
   const suggRadioBtn = selectRecommendationCriteria();
   determineAPICall(suggRadioBtn);
+  // CLEAR HTML FROM MOVIE CARD CONTAINER
 });
 
 function selectRecommendationCriteria(e) {
@@ -274,7 +275,7 @@ function getChoice(choice, iter) {
   }).then(function (response) {
     console.log(response);
   });
-  drawCard(response, iter)
+  drawCard(response, iter);
 }
 
 // Parse movie data to display:
@@ -287,15 +288,15 @@ function getChoice(choice, iter) {
 // movieDataObject.ratings =
 
 function drawCard(response, iter) {
-  const movieTitle{iter} = response.Title;
-  const moviePoster{iter} = response.Poster;
-  const moviePlot{iter} = response.Plot;
+  const movieCards = $("#suggestion-cards");
+  const movieTitle = response.Title;
+  const moviePoster = response.Poster;
+  const moviePlot = response.Plot;
   let movieCardTemplate = "";
 
-  movieCardTemplate += ``
+  movieCardTemplate += ``;
 
-
-
+  movieCards.html(movieCardTemplate);
 }
 
 // Stretch goal: When you click one of the recommended movies
