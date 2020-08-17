@@ -20,6 +20,7 @@ function parseAndUpdateHTML(movie) {
   // setting your movie section
   var i = 0;
   let actors = movie.Actors.split(",");
+  let genres = movie.Genre.split(",");
   document.getElementById("image0")
     ? (document.getElementById("image0").src = movie.Poster)
     : null;
@@ -36,9 +37,50 @@ function parseAndUpdateHTML(movie) {
   document.getElementById("director-name")
     ? (document.getElementById("director-name").innerHTML = movie.Director)
     : null;
-  document.getElementById("actors0")
-    ? (document.getElementById("actors0").innerHTML = actors[0])
+  document.getElementById("actor0")
+    ? (document.getElementById("actor0").innerHTML = actors[0])
     : null;
+  document.getElementById("actor1")
+    ? (document.getElementById("actor1").innerHTML = actors[1])
+    : null;
+  document.getElementById("genre0")
+    ? (document.getElementById("genre0").innerHTML = genres[0])
+    : null;
+  document.getElementById("genre1")
+    ? (document.getElementById("genre1").innerHTML = genres[1])
+    : null;
+
+  var actorsRadioBtns = "";
+  for (var i = 0; i < actors.length; i++) {
+    //VALUE needs to be a VARIABLE so it can change with each new actor
+    actorsRadioBtns +=
+      '<label><input id="actor-radio-btn' +
+      i +
+      '" class="with-gap" name="actor-radio" type="radio" value="500" checked/><span id="actor' +
+      i +
+      '">' +
+      actors[i] +
+      "</span></label>";
+  }
+  document
+    .getElementById("actors-radio-btns")
+    .insertAdjacentHTML("afterbegin", actorsRadioBtns);
+
+  var genresRadioBtns = "";
+  for (var i = 0; i < genres.length; i++) {
+    //VALUE needs to be a VARIABLE so it can change with each new genre
+    genresRadioBtns +=
+      '<label><input id="genres-radio-btn' +
+      i +
+      '" class="with-gap" name="genre-radio" type="radio" value="28" checked/><span id="genre' +
+      i +
+      '">' +
+      genres[i] +
+      "</span></label>";
+  }
+  document
+    .getElementById("genres-radio-btns")
+    .insertAdjacentHTML("afterbegin", genresRadioBtns);
 
   $("#card0").removeClass("hide");
   $("#rating-card").removeClass("hide");
@@ -67,15 +109,6 @@ function parseAndUpdateHTML(movie) {
   //    $("#recommendation-box").removeClass('hide');
   // }
 }
-
-// Parse movie data to display:
-// function parseResp(resp)
-// const movieDataObject = {};
-// movieDataObject.title = resp.
-// movieDataOjbect.year = resp.
-// movieDataObject.director = resp.
-// movieDataObject.actors = resp.
-// movieDataObject.ratings =
 
 // function drawMainContent(movieDataObject) {
 
@@ -113,7 +146,7 @@ function selectRecommendationCriteria(e) {
 function determineAPICall(suggRadioBtn) {
   // IF THEY WANT TO SEARCH BY ACTOR
   if (suggRadioBtn === "actor") {
-    //  check which actor is selected and get their ID **THIS WORKS***
+    //  check which actor is selected and get their ID
     let personId = $("input[name='actor-radio']:checked").val();
     // call API for movie credits
     getActorCredits(personId);
@@ -241,10 +274,30 @@ function getChoice(choice, iter) {
   }).then(function (response) {
     console.log(response);
   });
-  // call drawCard(response, iter)
+  drawCard(response, iter)
 }
 
-function drawCard(response, iter) {}
+// Parse movie data to display:
+// function parseResp(resp)
+// const movieDataObject = {};
+// movieDataObject.title = resp.
+// movieDataOjbect.year = resp.
+// movieDataObject.director = resp.
+// movieDataObject.actors = resp.
+// movieDataObject.ratings =
+
+function drawCard(response, iter) {
+  const movieTitle{iter} = response.Title;
+  const moviePoster{iter} = response.Poster;
+  const moviePlot{iter} = response.Plot;
+  let movieCardTemplate = "";
+
+  movieCardTemplate += ``
+
+
+
+}
+
 // Stretch goal: When you click one of the recommended movies
 // display additional information
 
