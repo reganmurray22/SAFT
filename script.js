@@ -33,9 +33,9 @@ var actorsRadioBtns = '';
 
  var genresRadioBtns = '';
  for (var i = 0; i < genres.length ; i++) {
-   genresRadioBtns += '<label><input id="genere-radio-btn'+ i +'" class="with-gap" name="genere-radio" type="radio" value="28" checked/><span id="genere'+i+'">'+genres[i]+'</span></label>'
+   genresRadioBtns += '<label><input id="genres-radio-btn'+ i +'" class="with-gap" name="genre-radio" type="radio" value="28" checked/><span id="genre'+i+'">'+genres[i]+'</span></label>'
  }
- document.getElementById('geners-radio-btns').insertAdjacentHTML('afterbegin', genresRadioBtns);
+ document.getElementById('genres-radio-btns').insertAdjacentHTML('afterbegin', genresRadioBtns);
 
    $("#card0").removeClass("hide");
    $("#rating-card").removeClass("hide");
