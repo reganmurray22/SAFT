@@ -120,7 +120,7 @@ function determineAPICall(suggRadioBtn) {
     // IF THEY WANT TO SEARCH BY DIRECTOR
   } else if (suggRadioBtn === "director") {
     //  get ID of director
-    let personId = $("#director-name").val();
+    let personId = $("#director-name-value").val();
     console.log("personId in detAPI", personId);
     // call API for directors
     getDirectorCredits(personId);
