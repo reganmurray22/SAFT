@@ -1,18 +1,22 @@
 // *****WE NEED A PREVENT DEFAULT IF THE SEARCH BUTTON IS CLICKED W/ NO TEXT****
 
-$("#button1").click(() => callApi(1));
-$("#button2").click(() => callApi(2));
-callApi = async (id) => {
-  let query = document
+$("#button1").click(() => searchMovieBySearchBar(1));
+$("#button2").click(() => searchMovieBySearchBar(2));
+function searchMovieBySearchBar(id) {
+  let movieTitle = document
     .getElementById(id === 1 ? "search-cola" : "search")
     .value.toLowerCase()
     .trim();
   console.log(
     document.getElementById(id === 1 ? "search-cola" : "search").value
   );
+  callApi(movieTitle);
+}
+
+callApi = async (movieTitle) => {
   let apiKey = "91eadf893040a861219dbeed5365bc50";
   const response = await fetch(
-    `https://www.omdbapi.com/?t=${query}&apikey=trilogy`
+    `https://www.omdbapi.com/?t=${movieTitle}&apikey=trilogy`
   );
   const responseData = await response.json();
   parseAndUpdateHTML(responseData);
@@ -97,7 +101,7 @@ function parseAndUpdateHTML(movie) {
         personsName,
       method: "GET",
     }).then(function (result) {
-      console.log("RESULT => ", result);
+      // console.log("RESULT => ", result);
       var personId = result.results[0].id;
       // console.log(personId);
       document
@@ -110,7 +114,7 @@ function parseAndUpdateHTML(movie) {
     const genreArray = JSON.parse(localStorage.getItem("genreArray"));
     let j = 0;
     const genreCode = searchForGenreId(genreArray, genre);
-    console.log(genreCode);
+    // console.log(genreCode);
 
     document
       .getElementById(`genres-radio-btn${i}`)
@@ -143,9 +147,9 @@ function parseAndUpdateHTML(movie) {
 function searchForGenreId(genreArr, genre) {
   for (i = 0; i <= genreArr.length; i++) {
     // genreArr.forEach((genreObj) => {
-    console.log(genreArr[i], genre);
+    // console.log(genreArr[i], genre);
     if (genreArr[i].genreId === genre) {
-      console.log("WE IN IT", genreArr[i].genreName);
+      // console.log("WE IN IT", genreArr[i].genreName);
       return genreArr[i].genreName;
     }
   }
@@ -169,15 +173,13 @@ function getDirectorId(director) {
 
 // CLICK EVENT FOR 'SUGGEST MOVIES' BUTTON
 $("#suggest-movies-btn").on("click", () => {
-  console.log("nina-click");
   const suggRadioBtn = selectRecommendationCriteria();
   determineAPICall(suggRadioBtn);
 });
 
 function selectRecommendationCriteria(e) {
-  console.log("selectRecommendationCritCalled");
   const suggRadioBtns = $("input[name='suggestion-radios']:checked").val();
-  console.log("THIS IS A", suggRadioBtns);
+  // console.log("THIS IS A", suggRadioBtns);
   return suggRadioBtns;
 }
 
@@ -222,11 +224,11 @@ function getActorCredits(personId) {
       moviesArray.push(filmography);
     }
 
-    console.log(moviesArray);
+    // console.log(moviesArray);
     localStorage.setItem("moviesArray", JSON.stringify(moviesArray));
 
     let x = credits.cast.length;
-    console.log(x);
+    // console.log(x);
     getThreeMovies(moviesArray, x);
   });
 }
@@ -246,11 +248,11 @@ function getDirectorCredits(personId) {
       moviesArray.push(filmography);
     }
 
-    console.log(moviesArray);
+    // console.log(moviesArray);
     localStorage.setItem("creditsArray", JSON.stringify(moviesArray));
 
     let x = credits.crew.length;
-    console.log(x);
+    // console.log(x);
     getThreeMovies(moviesArray, x);
   });
 }
@@ -291,7 +293,7 @@ function getThreeMovies(moviesArray, x) {
   console.log(threeChoices);
 
   var choiceArray = threeChoices.split(", ");
-  console.log(choiceArray, choiceArray.length);
+  // console.log(choiceArray, choiceArray.length);
   // CLEARS PREVIOUS MOVIE SUGGESTIONS
   const movieCards = $("#suggestion-cards");
   movieCards.html("");
@@ -313,7 +315,7 @@ function getChoice(choice) {
     method: "GET",
   })
     .then(function (response) {
-      console.log("getChoiceRan", response);
+      // console.log("getChoiceRan", response);
       drawCard(response);
     })
     .catch((error) => {
@@ -323,10 +325,17 @@ function getChoice(choice) {
 
 // TAKES EACH OF THE THREE SUGGESTIONS AND WRITES THE HTML TO DISPLAY IT
 function drawCard(response) {
-  // console.log("drawCardcalled", response);
+  console.log("drawCardcalled", response);
+  if (response.Error) {
+    return;
+  }
+  const iMDBMovieId = response.imdbID;
   const movieCards = $("#suggestion-cards");
   const movieTitle = response.Title;
-  const moviePoster = response.Poster;
+  const moviePoster =
+    response.Poster === "N/A"
+      ? "https://popcornusa.s3.amazonaws.com/gallery/1576022750-nobody.png"
+      : response.Poster;
   const moviePlot = response.Plot;
   let movieCardTemplate = "";
 
@@ -344,21 +353,27 @@ function drawCard(response) {
       <span id="title1" class="card-title grey-text text-darken-4">${movieTitle}<i
           class="material-icons right">close</i></span>
       <p id="overview1">${moviePlot}</p>
-      <button id="suggestion-${movieTitle}" class="waves-effect waves-light btn" value="${movieTitle}">Check Me Out</button>
+      <button id="suggestion-${iMDBMovieId}" class="waves-effect waves-light btn" title="${movieTitle}">Check Me Out</button>
     </div>
   </div>
 </div>`;
-  let movieCardsHTML = String(movieCards.html());
+  // let movieCardsHTML = String(movieCards.html());
 
-  movieCardsHTML += movieCardTemplate;
-  movieCards.html(movieCardsHTML);
+  // movieCardsHTML += movieCardTemplate;
+  movieCards.append(movieCardTemplate);
+  cardButtonClickAssigner(iMDBMovieId);
 }
 
 // CLICK EVENT TO PUT A SUGGESTED MOVIE INTO THE MAIN CONTAINER
-$(`#suggestion-${movieTitle}`).on("click", () => {
-  console.log("e");
-  const newMovieTitle = $("#movie");
-});
+function cardButtonClickAssigner(iMDBMovieId) {
+  console.log(iMDBMovieId, "MOVIE TITLE FOR CLICK ASSIGNER");
+  $(`#suggestion-${iMDBMovieId}`).on("click", () => {
+    // console.log("WI IN HERE", e);
+    const newMovieTitle = $(`#suggestion-${iMDBMovieId}`).attr("title");
+    // console.log("newMovieTitle", newMovieTitle);
+    callApi(newMovieTitle);
+  });
+}
 
 function setGenreIdArrayInLocalStorage() {
   $.ajax({
