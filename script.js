@@ -22,7 +22,9 @@ function parseAndUpdateHTML(movie) {
   // setting your movie section
   var i = 0;
   let actors = movie.Actors.split(",");
-  let genres = movie.Genre.split(",");
+  let genres = movie.Genre.split(", ");
+  let director = movie.Director;
+  getDirectorId(director);
   document.getElementById("image0")
     ? (document.getElementById("image0").src = movie.Poster)
     : null;
@@ -54,11 +56,10 @@ function parseAndUpdateHTML(movie) {
 
   var actorsRadioBtns = "";
   for (var i = 0; i < actors.length; i++) {
-    //VALUE needs to be a VARIABLE so it can change with each new actor
     actorsRadioBtns +=
       '<label><input id="actor-radio-btn' +
       i +
-      '" class="with-gap" name="actor-radio" type="radio" value="500" checked/><span id="actor' +
+      '" class="with-gap" name="actor-radio" type="radio" value="" checked/><span id="actor' +
       i +
       '">' +
       actors[i] +
@@ -70,11 +71,10 @@ function parseAndUpdateHTML(movie) {
 
   var genresRadioBtns = "";
   for (var i = 0; i < genres.length; i++) {
-    //VALUE needs to be a VARIABLE so it can change with each new genre
     genresRadioBtns +=
       '<label><input id="genres-radio-btn' +
       i +
-      '" class="with-gap" name="genre-radio" type="radio" value="28" checked/><span id="genre' +
+      '" class="with-gap" name="genre-radio" type="radio" value="" checked/><span id="genre' +
       i +
       '">' +
       genres[i] +
@@ -89,8 +89,6 @@ function parseAndUpdateHTML(movie) {
   $("#welcomeRow").addClass("hide");
   $("#recommendation-box").removeClass("hide");
 
-  var searchPerson = "Tom Cruise";
-
   actors.forEach((actor, i) => {
     var personsName = actor.replace(" ", "+");
     $.ajax({
@@ -101,13 +99,22 @@ function parseAndUpdateHTML(movie) {
     }).then(function (result) {
       console.log("RESULT => ", result);
       var personId = result.results[0].id;
-      console.log(personId);
-      console.log("START OF HTML QUERY ", i);
-      console.log(document.getElementById(`#actor-radio-btn${i}`));
+      // console.log(personId);
       document
         .getElementById(`actor-radio-btn${i}`)
         .setAttribute("value", personId);
     });
+  });
+
+  genres.forEach((genre, i) => {
+    const genreArray = JSON.parse(localStorage.getItem("genreArray"));
+    let j = 0;
+    const genreCode = searchForGenreId(genreArray, genre);
+    console.log(genreCode);
+
+    document
+      .getElementById(`genres-radio-btn${i}`)
+      .setAttribute("value", genreCode);
   });
 
   // for (let i = 0; i < movies.length && i < 4; i++) {
@@ -133,21 +140,32 @@ function parseAndUpdateHTML(movie) {
   // }
 }
 
-// function drawMainContent(movieDataObject) {
+function searchForGenreId(genreArr, genre) {
+  for (i = 0; i <= genreArr.length; i++) {
+    // genreArr.forEach((genreObj) => {
+    console.log(genreArr[i], genre);
+    if (genreArr[i].genreId === genre) {
+      console.log("WE IN IT", genreArr[i].genreName);
+      return genreArr[i].genreName;
+    }
+  }
+}
 
-// Movie Title
-
-// Poster
-
-// Year
-
-// Genre
-
-// Director
-
-// Actors
-
-// };
+function getDirectorId(director) {
+  var personsName = director.replace(" ", "+");
+  $.ajax({
+    url:
+      "https://api.themoviedb.org/3/search/person?api_key=820bbe10cb48ba65507b6fe60d8c0d50&query=" +
+      personsName,
+    method: "GET",
+  }).then(function (result) {
+    // console.log("RESULT => ", result);
+    var personId = result.results[0].id;
+    document
+      .getElementById("director-name-value")
+      .setAttribute("value", personId);
+  });
+}
 
 // CLICK EVENT FOR 'SUGGEST MOVIES' BUTTON
 $("#suggest-movies-btn").on("click", () => {
@@ -292,10 +310,14 @@ function getChoice(choice) {
   $.ajax({
     url: "https://www.omdbapi.com/?t=" + choice + "&apikey=trilogy",
     method: "GET",
-  }).then(function (response) {
-    console.log("getChoiceRan", response);
-    drawCard(response);
-  });
+  })
+    .then(function (response) {
+      console.log("getChoiceRan", response);
+      drawCard(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 // TAKES EACH OF THE THREE SUGGESTIONS AND WRITES THE HTML TO DISPLAY IT
@@ -330,6 +352,27 @@ function drawCard(response) {
   movieCardsHTML += movieCardTemplate;
   movieCards.html(movieCardsHTML);
 }
+
+function setGenreIdArrayInLocalStorage() {
+  $.ajax({
+    url:
+      "https://api.themoviedb.org/3/genre/movie/list?api_key=820bbe10cb48ba65507b6fe60d8c0d50&language=en-US",
+    method: "GET",
+  }).then(function (result) {
+    let genreArray = [];
+    for (i = 0; i <= 18; i++) {
+      var genreName = result.genres[i].id;
+      var genreId = result.genres[i].name;
+
+      let genreObj = { genreName, genreId };
+      genreArray.push(genreObj);
+    }
+    localStorage.setItem("genreArray", JSON.stringify(genreArray));
+    console.log(genreArray);
+  });
+}
+
+setGenreIdArrayInLocalStorage();
 
 // Stretch goal: When you click one of the recommended movies
 // display additional information
