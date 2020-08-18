@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../SAFT/style.css">
     <script src="script.js"></script>
     <title>Movie Hub</title>    
 </head>
@@ -70,7 +72,7 @@
         </div>
       </div>
         <!-- Cards/ movie selectors show on search click -->
-        <div id="card0" class="row hide">
+        <div id="card0" class="row hide hide-on-med-and-down">
           <div class="col s12">
             <h3 id="title0" class="header grey-text text-lighten-4">Your Movie</h3>
             <div class="card horizontal medium">
@@ -78,20 +80,44 @@
                 <img id="image0" class="img-responsive" src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
               </div>
               <div class="card-stacked">
-                <div class="card-content">
+                <div class="card-content col s12">
                   <p id="overview0" >Movies Details Actors and Genre placement</p>
                   
-                  <h5>Director</h5>	                   
+                  <span>Director</span>	                   
                     <label> 	                    
                     <input id="director-name-value" class="with-gap" name="group1" value="9033" type="radio" checked/>
                     <span id="director-name">Director's Name Here</span>
                     </label>
-                    <h5>Actors</h5> 	                     
+                    <span>Actors</span> 	                     
                     <p id ='actors-radio-btns'></p>
-                    <h5>Genres</h5>
+                    <span>Genres</span>
                     <p id ='genres-radio-btns'></p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      <div id="card1" class="row hide hide-on-large-only">
+        <div class="col s12 m7">
+          <h3 id="title1" class="header grey-text text-lighten-4">Your Movie</h3>
+          <div class="card">
+            <div class="card-image">
+              <img id="image1" class="img-responsive" src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
+              </div>
+              <div class="card-content">
+                <p id="overview1" >Movies Details Actors and Genre placement</p>
+                  
+                <span>Director</span>	                   
+                  <label> 	                    
+                  <input id="director-name-value" class="with-gap" name="group1" value="9033" type="radio" checked/>
+                  <span id="director-name">Director's Name Here</span>
+                  </label>
+                  <span>Actors</span> 	                     
+                  <p id ='actors-radio-btns'></p>
+                  <span>Genres</span>
+                  <p id ='genres-radio-btns'></p>
+              </div>
+            
             </div>
           </div>
         </div>
@@ -207,7 +233,7 @@
     <div class="row">
   <div class="footer-copyright">
     <div class="container center">
-    © 2014 Copyright Text
+    © 2020 Copyright
     </div>
   </div>
 </footer>
