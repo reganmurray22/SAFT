@@ -7,8 +7,6 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="../SAFT/style.css">
-    <script src="script.js"></script>
     <title>Movie Hub</title>    
 </head>
 <body class="red accent-2">
@@ -20,7 +18,7 @@
         <div class="collapsible-header red white-text"><i class="material-icons white-text">device_hub</i>Movie Hub: Expand Your Movie Horizons <br> Click Here to search for your film.</div>
         <div class="collapsible-body">
           <form>
-            <div class="input-field grey lighten-3">                       
+            <div class="input-field grey lighten-3" id="search-bar">                       
               <input id="search-cola" placeholder="Search your Movie Titles" type="search" required>
                 
                  <i class="material-icons">close</i>
@@ -46,7 +44,7 @@
       <div class="row hide-on-med-and-down">
         <div class="col s6">
           <form>
-          <div class="input-field grey lighten-3">                       
+          <div class="input-field grey lighten-3" id="search-bar">                       
             <input id="search" placeholder="Search your Movie Titles" type="search" required>
                <i class="material-icons">close</i>
             </div>
@@ -165,63 +163,7 @@
     <div class="row">
       <!--cards-->
         <div class="container" id="suggestion-cards">
-          <!-- First card -->
-            <!-- <div class="col s4">
-              <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                  <img id="image1"class="activator img-responsive"
-                    src=${moviePoster}>
-                </div>
-                <div class="card-content">
-                  <span id="${movieTitle}" class="card-title activator grey-text text-darken-4">${movieTitle}<i
-                      class="material-icons right">more_vert</i></span>
-                </div>
-                <div class="card-reveal">
-                  <span id="title1" class="card-title grey-text text-darken-4">Card Title<i
-                      class="material-icons right">close</i></span>
-                  <p id="overview1">${moviePlot}</p>
-                  <button id="suggestion-one" class="waves-effect waves-light btn">Check Me Out</button>
-                </div>
-              </div>
-            </div> -->
-            <!-- Second Card -->
-            <!-- <div class="col s4">
-              <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                  <img id="image2" class="activator"
-                    src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
-                </div>
-                <div class="card-content">
-                  <span id="title2" class="card-title activator grey-text text-darken-4">Card Title<i
-                      class="material-icons right">more_vert</i></span>
-                </div>
-                <div class="card-reveal">
-                  <span id="title2" class="card-title grey-text text-darken-4">Card Text<i
-                      class="material-icons right">close</i></span>
-                  <p id="overview2">Here is some more information about this product that is only revealed once clicked on.</p>
-                  <button id="suggestion-two" class="waves-effect waves-light btn">Check Me Out</button>
-                </div>
-              </div>
-            </div> -->
-            <!-- Third Card -->
-            <!-- <div class="col s4">
-              <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                  <img id="image3" class="activator"
-                    src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
-                </div>
-                <div class="card-content">
-                  <span id="title3" class="card-title activator grey-text text-darken-4">Card Title<i
-                      class="material-icons right">more_vert</i></span>
-                </div>
-                <div class="card-reveal">
-                  <span id="title3" class="card-title grey-text text-darken-4">Card Title<i
-                      class="material-icons right">close</i></span>
-                  <p id="overview3">Here is some more information about this product that is only revealed once clicked on.</p>
-                  <button id="suggestion-three" class="waves-effect waves-light btn">Check Me Out</button>
-                </div>
-              </div>
-            </div> -->
+          
 
    <!--This is the end line do not delete!-->
   </div>

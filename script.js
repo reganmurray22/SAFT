@@ -1,7 +1,13 @@
 // *****WE NEED A PREVENT DEFAULT IF THE SEARCH BUTTON IS CLICKED W/ NO TEXT****
 
-$("#button1").click(() => searchMovieBySearchBar(1));
-$("#button2").click(() => searchMovieBySearchBar(2));
+$("#button1").click((e) => {
+  searchMovieBySearchBar(1);
+  event.preventDefault();
+});
+$("#button2").click((e) => {
+  searchMovieBySearchBar(2);
+  event.preventDefault();
+});
 function searchMovieBySearchBar(id) {
   let movieTitle = document
     .getElementById(id === 1 ? "search-cola" : "search")
@@ -18,14 +24,18 @@ callApi = async (movieTitle) => {
   const response = await fetch(
     `https://www.omdbapi.com/?t=${movieTitle}&apikey=trilogy`
   );
+
   const responseData = await response.json();
   parseAndUpdateHTML(responseData);
 };
 
 function parseAndUpdateHTML(movie) {
+  // clears the search bar
+  $("#search-cola").val("");
+  $("#search").val("");
   // setting your movie section
   var i = 0;
-  let actors = movie.Actors.split(",");
+  let actors = movie.Actors.split(", ");
   let genres = movie.Genre.split(", ");
   let director = movie.Director;
   getDirectorId(director);
@@ -58,6 +68,11 @@ function parseAndUpdateHTML(movie) {
     ? (document.getElementById("genre1").innerHTML = genres[1])
     : null;
 
+  const actorRadioBtnHTML = $("#actors-radio-btns");
+  const genreRadioBtnHTML = $("#genres-radio-btns");
+
+  actorRadioBtnHTML.html("");
+  genreRadioBtnHTML.html("");
   var actorsRadioBtns = "";
   for (var i = 0; i < actors.length; i++) {
     actorsRadioBtns +=
@@ -84,6 +99,9 @@ function parseAndUpdateHTML(movie) {
       genres[i] +
       "</span></label>";
   }
+  const movieCards = $("#suggestion-cards");
+  movieCards.html("");
+
   document
     .getElementById("genres-radio-btns")
     .insertAdjacentHTML("afterbegin", genresRadioBtns);
@@ -120,28 +138,6 @@ function parseAndUpdateHTML(movie) {
       .getElementById(`genres-radio-btn${i}`)
       .setAttribute("value", genreCode);
   });
-
-  // for (let i = 0; i < movies.length && i < 4; i++) {
-  //    document.getElementById("image"+i)? document.getElementById("image"+i).src = "https://image.tmdb.org/t/p/w500" + movies[i].poster_path : null
-  //    document.getElementById("title"+i) ? document.getElementById("title"+i).innerHTML = movies[i].title : null
-  //    document.getElementById("rating"+i)? document.getElementById("rating"+i).innerHTML = "Ratings Box: " + movies[i].vote_average : null
-  //    document.getElementById("overview"+i) ? document.getElementById("overview"+i).innerHTML = movies[i].overview : null
-  //    if (i === 0) {
-  //       $("#card0").removeClass("hide");
-
-  //       $("#rating-card").removeClass("hide");
-
-  //    }
-
-  // }
-  // if(movies.length > 4)  {
-  //    $(".hide").removeClass("hide");
-  // }
-  // $("#welcomeRow").addClass('hide')
-
-  // if(movies.length > 1 && movies.length < 4) {
-  //    $("#recommendation-box").removeClass('hide');
-  // }
 }
 
 function searchForGenreId(genreArr, genre) {
@@ -293,7 +289,7 @@ function getThreeMovies(moviesArray, x) {
   console.log(threeChoices);
 
   var choiceArray = threeChoices.split(", ");
-  // console.log(choiceArray, choiceArray.length);
+
   // CLEARS PREVIOUS MOVIE SUGGESTIONS
   const movieCards = $("#suggestion-cards");
   movieCards.html("");
@@ -339,18 +335,18 @@ function drawCard(response) {
   const moviePlot = response.Plot;
   let movieCardTemplate = "";
 
-  movieCardTemplate += `<div class="col s4">
+  movieCardTemplate += `<div class="col s12 s4">
   <div class="card">
     <div class="card-image waves-effect waves-block waves-light">
       <img id="image1"class="activator img-responsive"
         src=${moviePoster}>
     </div>
     <div class="card-content">
-      <span id="${movieTitle}" class="card-title activator grey-text text-darken-4">${movieTitle}<i
+      <span id="${movieTitle}" class="activator grey-text text-darken-4">${movieTitle}<i
           class="material-icons right">more_vert</i></span>
     </div>
     <div class="card-reveal">
-      <span id="title1" class="card-title grey-text text-darken-4">${movieTitle}<i
+      <span id="title1" class="card-title grey-text text-darken-4" style="font-size: 16px; font-weight: 500;">${movieTitle}<i
           class="material-icons right">close</i></span>
       <p id="overview1">${moviePlot}</p>
       <button id="suggestion-${iMDBMovieId}" class="waves-effect waves-light btn" title="${movieTitle}">Check Me Out</button>
@@ -390,135 +386,8 @@ function setGenreIdArrayInLocalStorage() {
       genreArray.push(genreObj);
     }
     localStorage.setItem("genreArray", JSON.stringify(genreArray));
-    console.log(genreArray);
+    // console.log(genreArray);
   });
 }
 
 setGenreIdArrayInLocalStorage();
-
-// Stretch goal: When you click one of the recommended movies
-// display additional information
-
-// Stretch: Store your previous searches in local storage and display
-// somewhere for the user to reuse them as searches?
-
-//Stretch Item: A button to suggest a movie if you
-// can't think of one to watch
-
-/*
-{
-    "adult":false,
-    "backdrop_path":"/rr7E0NoGKxvbkb89eR1GwfoYjpA.jpg",
-    "belongs_to_collection":null,
-    "budget":63000000,
-    "genres":[
-       {
-          "id":18,
-          "name":"Drama"
-       }
-    ],
-    "homepage":"http://www.foxmovies.com/movies/fight-club",
-    "id":550,
-    "imdb_id":"tt0137523",
-    "original_language":"en",
-    "original_title":"Fight Club",
-    "overview":"A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
-    "popularity":37.22,
-    "poster_path":"/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
-    "production_companies":[
-       {
-          "id":508,
-          "logo_path":"/7PzJdsLGlR7oW4J0J5Xcd0pHGRg.png",
-          "name":"Regency Enterprises",
-          "origin_country":"US"
-       },
-       {
-          "id":711,
-          "logo_path":"/tEiIH5QesdheJmDAqQwvtN60727.png",
-          "name":"Fox 2000 Pictures",
-          "origin_country":"US"
-       },
-       {
-          "id":20555,
-          "logo_path":"/hD8yEGUBlHOcfHYbujp71vD8gZp.png",
-          "name":"Taurus Film",
-          "origin_country":"DE"
-       },
-       {
-          "id":54051,
-          "logo_path":null,
-          "name":"Atman Entertainment",
-          "origin_country":""
-       },
-       {
-          "id":54052,
-          "logo_path":null,
-          "name":"Knickerbocker Films",
-          "origin_country":"US"
-       },
-       {
-          "id":25,
-          "logo_path":"/qZCc1lty5FzX30aOCVRBLzaVmcp.png",
-          "name":"20th Century Fox",
-          "origin_country":"US"
-       },
-       {
-          "id":4700,
-          "logo_path":"/A32wmjrs9Psf4zw0uaixF0GXfxq.png",
-          "name":"The Linson Company",
-          "origin_country":""
-       }
-    ],
-    "production_countries":[
-       {
-          "iso_3166_1":"DE",
-          "name":"Germany"
-       },
-       {
-          "iso_3166_1":"US",
-          "name":"United States of America"
-       }
-    ],
-    "release_date":"1999-10-15",
-    "revenue":100853753,
-    "runtime":139,
-    "spoken_languages":[
-       {
-          "iso_639_1":"en",
-          "name":"English"
-       }
-    ],
-    "status":"Released",
-    "tagline":"Mischief. Mayhem. Soap.",
-    "title":"Fight Club",
-    "video":false,
-    "vote_average":8.4,
-    "vote_count":19816
- }
- */
-
-// Nina's Pseudo code
-// Search Bar takes in value, click event w/ button
-// function searchPrimaryMovie(e) {
-// Get Value from search bar
-// const primaryMovie = $().val();
-
-// If search button is clicked but there's no text, return
-// if (var === "") {return;}
-
-// Pass to API call
-// const newURL = createQueryURL(primaryMovie);
-// getMovieData(newURL);
-// }
-
-// function createQueryURL(primaryMovie){
-// return "https:WHATEVERTHEAPICALLFORMATISHEREWITH${primaryMovie}&${APIKEY}";
-// }
-
-// API call to get movie data
-// function getMovieData(url) {
-//   $.ajax({
-//     url: url,
-//     method: "GET",
-//   }).then((resp) => {
-//     const movieData = parseResp(resp);
