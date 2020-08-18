@@ -47,7 +47,7 @@ function parseAndUpdateHTML(movie) {
     : null;
   document.getElementById("rating0")
     ? (document.getElementById("rating0").innerHTML =
-        "Ratings Box: " + movie.imdbRating)
+        "IMDB Rating: " + movie.imdbRating)
     : null;
   document.getElementById("overview0")
     ? (document.getElementById("overview0").innerHTML = movie.Plot)
@@ -105,7 +105,8 @@ function parseAndUpdateHTML(movie) {
   document
     .getElementById("genres-radio-btns")
     .insertAdjacentHTML("afterbegin", genresRadioBtns);
-
+  
+  $("#card1").removeClass("hide");
   $("#card0").removeClass("hide");
   $("#rating-card").removeClass("hide");
   $("#welcomeRow").addClass("hide");
@@ -335,7 +336,7 @@ function drawCard(response) {
   const moviePlot = response.Plot;
   let movieCardTemplate = "";
 
-  movieCardTemplate += `<div class="col s12 s4">
+  movieCardTemplate += `<div class="col s12 m4">
   <div class="card">
     <div class="card-image waves-effect waves-block waves-light">
       <img id="image1"class="activator img-responsive"
