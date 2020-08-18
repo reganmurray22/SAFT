@@ -18,14 +18,16 @@ callApi = async (movieTitle) => {
   const response = await fetch(
     `https://www.omdbapi.com/?t=${movieTitle}&apikey=trilogy`
   );
+
   const responseData = await response.json();
   parseAndUpdateHTML(responseData);
+  console.log("CHECK ME NINA", responseData);
 };
 
 function parseAndUpdateHTML(movie) {
   // setting your movie section
   var i = 0;
-  let actors = movie.Actors.split(",");
+  let actors = movie.Actors.split(", ");
   let genres = movie.Genre.split(", ");
   let director = movie.Director;
   getDirectorId(director);
@@ -58,6 +60,11 @@ function parseAndUpdateHTML(movie) {
     ? (document.getElementById("genre1").innerHTML = genres[1])
     : null;
 
+  const actorRadioBtnHTML = $("#actors-radio-btns");
+  const genreRadioBtnHTML = $("#genres-radio-btns");
+
+  actorRadioBtnHTML.html("");
+  genreRadioBtnHTML.html("");
   var actorsRadioBtns = "";
   for (var i = 0; i < actors.length; i++) {
     actorsRadioBtns +=
@@ -84,6 +91,9 @@ function parseAndUpdateHTML(movie) {
       genres[i] +
       "</span></label>";
   }
+  const movieCards = $("#suggestion-cards");
+  movieCards.html("");
+
   document
     .getElementById("genres-radio-btns")
     .insertAdjacentHTML("afterbegin", genresRadioBtns);
