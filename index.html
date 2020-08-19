@@ -55,7 +55,7 @@
       </div> 
              <!--Hide this Row on Search  -->
       <div id="welcomeRow" class="row">
-        <div class="col s12">
+        <div class="col s12 hide-on-med-and-down">
           <h2 class="header grey-text text-lighten-4">Welcome to Movie Hub!</h2>
           <div class="card horizontal">
             <div class="card-image">
@@ -68,20 +68,28 @@
             </div>
           </div>
         </div>
+        <div class="col s12 hide-on-large-only">
+          <div class="card">
+            <div class="card-content">
+              <h4>For movie lovers everywhere, this app was made to explore across movie Titles, Actors, Genres, and Directors. Simply search above and expand your movie horizons.</h4>
+            </div>
+          </div>
+            
+        </div>
       </div>
         <!-- Cards/ movie selectors show on search click -->
-        <div id="card0" class="row hide hide-on-med-and-down">
+        <div id="card0" class="row hide">
           <div class="col s12">
             <h3 id="title0" class="header grey-text text-lighten-4">Your Movie</h3>
-            <div class="card horizontal medium">
+            <div class="card horizontal">
               <div class="card-image">
                 <img id="image0" class="img-responsive" src="https://images-eu.ssl-images-amazon.com/images/I/713qFh-NRrL._AC_UL320_SR240,320_.jpg">
               </div>
               <div class="card-stacked">
                 <div class="card-content col s12">
                   <p id="overview0" >Movies Details Actors and Genre placement</p>
-                  
-                  <span>Director</span>	                   
+                  <div class="col s12">
+                    <span>Director</span>	                   
                     <label>
                       <br> 	                    
                     <input id="director-name-value" class="with-gap" name="group1" value="9033" type="radio" checked/>
@@ -93,6 +101,7 @@
                     <br>
                     <span>Genres</span>
                     <p id ='genres-radio-btns'></p>
+                  </div>
                 </div>
               </div>
             </div>
