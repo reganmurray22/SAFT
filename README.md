@@ -6,9 +6,9 @@
 Welcome to Movie Hub! Where you can expand your movie horizons at the click of a button. We have a diverse selection of films you can search through by title, but if you want something more specific we provide that. Once you select a film you are able to also look for specific actors, directors and genres to influence what we recommend for you at the bottom of the page. We provide up to 3 suggestions based off what you are looking for, and from there you will be able to select the new film of your choice and fall down the rabbit hole of cinema. Who knows you may find something new that you've never heard of before. 
 
 ### Live Site
-[Movie Hub]()
+[Movie Hub](https://nckoller.github.io/SAFT/)
 ### Usage
-To start our app think of your favorite film and enter it into the search bar, at that point we will show the movie that you were searching for. As a bonus the Movie Hub will also provide up to three additional movie sugestions after selecting a specific topic to look into. This ranges from Actors starring in your favorite film, to the Director if you like their work, or if you want something a little more general you can explore through Genres.Thanks to the Movie Hub you can expand your movie horizons with countless movies to watch. 
+To start our app think of your favorite film and enter it into the search bar, at that point we will show the movie that you were searching for. As a bonus the Movie Hub will also provide up to three additional movie suggestions after selecting a specific topic to look into. This ranges from Actors starring in your favorite film, to the Director if you like their work, or if you want something a little more general you can explore through Genres. Thanks to the Movie Hub you can expand your movie horizons with countless movies to watch. 
 ### Api's Used
  #### [Open Movie Database](http://www.omdbapi.com/): 
  We used this API Database to find poster images, release dates, ratings as well as cast and crew details.
